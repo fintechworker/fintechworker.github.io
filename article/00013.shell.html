@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <meta charset="UTF-8">
+	<meta name="keywords" content="IT,Linux,Docker,K8S,网络, Java, Python, XHTML, JavaScript">
+	<meta name="description" content="IT技术分享">
+    <!-- libs css-->
+    <link rel="stylesheet" href="/_assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/_assets/css/tool.css">
+    <!-- libs js -->
+    <script src="/_assets/js/jquery-1.8.2.min.js"></script>
+    <script src="/_assets/js/jquery.ba-hashchange.js"></script>
+    <script src="/_assets/js/onePage.js"></script>
+    <script src="/_assets/js/tool.js"></script>
+    <script src="/_assets/js/base.js"></script>
+    <!-- style -->
+    <link rel="stylesheet" href="/_assets/style.css">
+    <link rel="stylesheet" href="/_assets/css/media.css">
+    <title>00013.shell参数 - IT民工</title>
+  <link rel="stylesheet" href="/_markdown_plugin_assets/katex/katex.css" />
+<link rel="stylesheet" href="/_markdown_plugin_assets/highlight.js/atom-one-light.css" /></head>
+  <body>
+    <div class="main">
+      <nav class="navigation">
+        <a href="/">IT民工</a>
+      </nav>
+      <article>
+        <header>
+          <h1 class="article-title">00013.shell参数</h1>
+          <div class="article-info">
+            <div>
+              <span>Created At：<time datetime="1705974686644">2024-01-23 09:51</time></span>
+              <span>Updated At：<time datetime="1706757073880">2024-02-01 11:11</time></span>
+            </div>
+            
+          </div>
+        </header>
+        <div class="article-content markdown-body"><p>一、参数个数标识<br />
+path/to/scriptname opt1 opt2 opt3 opt4<br />
+$0 $1 $2 $3 <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn></mrow><annotation encoding="application/x-tex">4
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em"></span><span class="mord">4</span></span></span></span></span># ：代表后接的参数『个数』，以上表为例这里显示为『 4 』；<br />
+$@ ：代表『 "$1" "$2" "$3" "<span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi mathvariant="normal">"</mi><mtext>』之意，每个变量是独立的</mtext><mo stretchy="false">(</mo><mtext>用双引号括起来</mtext><mo stretchy="false">)</mo><mtext>；</mtext></mrow><annotation encoding="application/x-tex">4" 』之意，每个变量是独立的(用双引号括起来)；
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord">4"</span><span class="mord cjk_fallback">』之意，每个变量是独立的</span><span class="mopen">(</span><span class="mord cjk_fallback">用双引号括起来</span><span class="mclose">)</span><span class="mord cjk_fallback">；</span></span></span></span></span>* ：代表『 "$1c$2c$3c$4" 』，其中 c 为分割字符，默认为空格键， 所以本例中代表『 "$1 $2 $3 $4" 』之意</p>
+<p>二、shift<br />
+示例1：依次读取输入的参数并打印参数个数：<br />
+<img src="/_resources/56c30f2c12ec49c39035c28af8674f1c.png" /><br />
+<img src="/_resources/ded447124a654afcab21e8118e82584b.png" /></p>
+<p>从上可知 shift(shift 1) 命令每执行一次，变量的个数($#)减一（之前的$1变量被销毁,之后的$2就变成了$1），而变量值提前一位。</p>
+<p>同理，shift n后，前n位参数都会被销毁，例如示例2</p>
+<p>示例2<br />
+<img src="/_resources/d9203a2a3afd4c7cadad128ea158c2bb.png" /><br />
+<img src="/_resources/49f4fa1f33d94d3c93a328ee03512267.png" /><br />
+运行结果：</p>
+<p>示例3：</p>
+<p>命令行参数处理<br />
+./imx6mksdboot.sh -device /dev/sdd -flash emmc -ddrsize 512</p>
+<p>#命令行处理，根据选项获得参数</p>
+<div><pre class="hljs"><code><span class="hljs-keyword">while</span> [ <span class="hljs-variable">$#</span> -gt 0 ]; <span class="hljs-keyword">do</span>
+  <span class="hljs-keyword">case</span> <span class="hljs-variable">$1</span> <span class="hljs-keyword">in</span>
+    --<span class="hljs-built_in">help</span> | -h)
+      usage <span class="hljs-variable">$0</span>
+      ;;
+    -device) <span class="hljs-built_in">shift</span>; device=<span class="hljs-variable">$1</span>; <span class="hljs-built_in">shift</span>; ;;               
+    -flash) <span class="hljs-built_in">shift</span>; flash=<span class="hljs-variable">$1</span>; <span class="hljs-built_in">shift</span>; ;;
+    -ddrsize) <span class="hljs-built_in">shift</span>; ddrsize=<span class="hljs-variable">$1</span>; <span class="hljs-built_in">shift</span>; ;;
+    --version) version <span class="hljs-variable">$0</span>;;
+    *) copy=<span class="hljs-string">"<span class="hljs-variable">$copy</span> <span class="hljs-variable">$1</span>"</span>; <span class="hljs-built_in">shift</span>; ;;
+  <span class="hljs-keyword">esac</span>
+<span class="hljs-keyword">done</span></code></pre></div>
+<p>当命令中有 -device时，会使用shift将参数左移，也就是去掉此前的$1，也就是命令中-device，此时的$1就成为了后面的 /dev/sdd，这样就让device变量等于/dev/sdd，一次类推</p>
+<p>usage $0是函数调用，将$0也就是脚本的名字掺入usage 函数中，在函数中需要用$1来获取</p>
+</div>
+      </article>
+    </div>
+  </body>
+</html>
