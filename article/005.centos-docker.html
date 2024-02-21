@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <meta charset="UTF-8">
+	<meta name="keywords" content="IT,Linux,Docker,K8S,网络, Java, Python, XHTML, JavaScript">
+	<meta name="description" content="IT技术分享">
+    <!-- libs css-->
+    <link rel="stylesheet" href="/_assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/_assets/css/tool.css">
+    <!-- libs js -->
+    <script src="/_assets/js/jquery-1.8.2.min.js"></script>
+    <script src="/_assets/js/jquery.ba-hashchange.js"></script>
+    <script src="/_assets/js/onePage.js"></script>
+    <script src="/_assets/js/tool.js"></script>
+    <script src="/_assets/js/base.js"></script>
+    <!-- style -->
+    <link rel="stylesheet" href="/_assets/style.css">
+    <link rel="stylesheet" href="/_assets/css/media.css">
+    <title>005.CentOS - Docker — 从入门到实践 - IT 民工</title>
+  <link rel="stylesheet" href="/_markdown_plugin_assets/highlight.js/atom-one-light.css" /></head>
+  <body>
+    <div class="main">
+      <nav class="navigation">
+        <a href="/">IT 民工</a>
+      </nav>
+      <article>
+        <header>
+          <h1 class="article-title">005.CentOS - Docker — 从入门到实践</h1>
+          <div class="article-info">
+            <div>
+              <span>Created At：<time datetime="1707038734500">2024-02-04 17:25</time></span>
+              <span>Updated At：<time datetime="1707113406364">2024-02-05 14:10</time></span>
+            </div>
+            
+          </div>
+        </header>
+        <div class="article-content markdown-body"><h2 id="centos">CentOS</h2>
+<p>警告：切勿在没有配置 Docker YUM 源的情况下直接使用 yum 命令安装 Docker.</p>
+<h3 id="准备工作">准备工作</h3>
+<p><strong>系统要求</strong><br />
+Docker 支持 64 位版本 CentOS 7/8，并且要求内核版本不低于 3.10。 CentOS 7 满足最低内核的要求，但由于内核版本比较低，部分功能（如 overlay2 存储层驱动）无法使用，并且部分功能可能不太稳定。<br />
+卸载旧版本<br />
+旧版本的 Docker 称为 docker 或者 docker-engine，使用以下命令卸载旧版本：</p>
+<div><pre class="hljs"><code>                  docker-client <span class="hljs-string">\</span>
+                  docker-client-latest <span class="hljs-string">\</span>
+                  docker-common <span class="hljs-string">\</span>
+                  docker-latest <span class="hljs-string">\</span>
+                  docker-latest-logrotate <span class="hljs-string">\</span>
+                  docker-logrotate <span class="hljs-string">\</span>
+                  docker-selinux <span class="hljs-string">\</span>
+                  docker-engine-selinux <span class="hljs-string">\</span>
+                  docker-engine</code></pre></div>
+<p>使用 yum 安装<br />
+执行以下命令安装依赖包：<br />
+<code>$ sudo yum install -y yum-utils</code><br />
+鉴于国内网络问题，强烈建议使用国内源，官方源请在注释中查看。<br />
+执行下面的命令添加 yum 软件源：</p>
+<div><pre class="hljs"><code>$ sudo yum-config-manager \
+    --add-repo \
+    https:<span class="hljs-regexp">//mi</span>rrors.aliyun.com<span class="hljs-regexp">/docker-ce/</span>linux<span class="hljs-regexp">/centos/</span>docker-ce.repo
+​
+$ sudo sed -i <span class="hljs-string">'s/download.docker.com/mirrors.aliyun.com\/docker-ce/g'</span> <span class="hljs-regexp">/etc/yum</span>.repos.d/docker-ce.repo
+​
+<span class="hljs-comment"># 官方源</span>
+<span class="hljs-comment"># $ sudo yum-config-manager \</span>
+<span class="hljs-comment">#     --add-repo \</span>
+<span class="hljs-comment">#     https://download.docker.com/linux/centos/docker-ce.repo</span></code></pre></div>
+<p>如果需要测试版本的 Docker 请执行以下命令：<br />
+<code>$ sudo yum-config-manager --enable docker-ce-test</code><br />
+安装 Docker<br />
+更新 yum 软件源缓存，并安装 docker-ce。<br />
+<code>$ sudo yum install docker-ce docker-ce-cli containerd.io</code><br />
+CentOS8 额外设置<br />
+由于 CentOS8 防火墙使用了 nftables，但 Docker 尚未支持 nftables， 我们可以使用如下设置使用 iptables：<br />
+更改 /etc/firewalld/firewalld.conf<br />
+<code># FirewallBackend=nftables FirewallBackend=iptables 或者执行如下命令： $ firewall-cmd --permanent --zone=trusted --add-interface=docker0 ​ $ firewall-cmd --reload </code><br />
+使用脚本自动安装<br />
+在测试或开发环境中 Docker 官方为了简化安装流程，提供了一套便捷的安装脚本，CentOS 系统上可以使用这套脚本安装，另外可以通过 --mirror 选项使用国内源进行安装：<br />
+若你想安装测试版的 Docker, 请从 test.docker.com 获取脚本</p>
+<div><pre class="hljs"><code><span class="hljs-comment"># $ curl -fsSL test.docker.com -o get-docker.sh</span>
+$ <span class="hljs-string">curl</span> -<span class="hljs-string">fsSL</span> <span class="hljs-string">get</span>.<span class="hljs-string">docker</span>.<span class="hljs-string">com</span> -<span class="hljs-string">o</span> <span class="hljs-built_in">get-docker.sh</span>
+$ <span class="hljs-string">sudo</span> <span class="hljs-string">sh</span> <span class="hljs-built_in">get-docker.sh</span> <span class="hljs-built_in">--mirror</span> <span class="hljs-string">Aliyun</span>
+<span class="hljs-comment"># $ sudo sh get-docker.sh --mirror AzureChinaCloud</span></code></pre></div>
+<p>执行这个命令后，脚本就会自动的将一切准备工作做好，并且把 Docker 的稳定(stable)版本安装在系统中。<br />
+启动 Docker</p>
+<div><pre class="hljs"><code><span class="hljs-variable">$</span> sudo systemctl enable docker
+<span class="hljs-variable">$</span> sudo systemctl <span class="hljs-built_in">start</span> docker</code></pre></div>
+<p>建立 docker 用户组<br />
+默认情况下，docker 命令会使用  与 Docker 引擎通讯。而只有 root 用户和 docker 组的用户才可以访问 Docker 引擎的 Unix socket。出于安全考虑，一般 Linux 系统上不会直接使用 root 用户。因此，更好地做法是将需要使用 docker 的用户加入 docker 用户组。<br />
+建立 docker 组：<br />
+<code>$ sudo groupadd docker</code><br />
+将当前用户加入 docker 组：<br />
+<code>$ sudo usermod -aG docker $USER</code><br />
+退出当前终端并重新登录，进行如下测试。<br />
+测试 Docker 是否安装正确</p>
+<div><pre class="hljs"><code>$ docker run <span class="hljs-comment">--rm hello-world</span>
+​
+Unable <span class="hljs-built_in">to</span> find image <span class="hljs-string">'hello-world:latest'</span> locally
+latest: Pulling <span class="hljs-built_in">from</span> library/hello-world
+b8dfde127a29: Pull complete
+Digest: sha256:<span class="hljs-number">308866</span>a43596e83578c7dfa15e27a73011bdd402185a84c5cd7f32a88b501a24
+Status: Downloaded newer image <span class="hljs-keyword">for</span> hello-world:latest
+​
+Hello <span class="hljs-built_in">from</span> Docker!
+This message shows that your installation appears <span class="hljs-built_in">to</span> be working correctly.
+​
+To generate this message, Docker took <span class="hljs-keyword">the</span> following steps:
+ <span class="hljs-number">1.</span> The Docker client contacted <span class="hljs-keyword">the</span> Docker daemon.
+ <span class="hljs-number">2.</span> The Docker daemon pulled <span class="hljs-keyword">the</span> <span class="hljs-string">"hello-world"</span> image <span class="hljs-built_in">from</span> <span class="hljs-keyword">the</span> Docker Hub.
+    (amd64)
+ <span class="hljs-number">3.</span> The Docker daemon created <span class="hljs-keyword">a</span> <span class="hljs-built_in">new</span> container <span class="hljs-built_in">from</span> that image which runs <span class="hljs-keyword">the</span>
+    executable that produces <span class="hljs-keyword">the</span> output you are currently reading.
+ <span class="hljs-number">4.</span> The Docker daemon streamed that output <span class="hljs-built_in">to</span> <span class="hljs-keyword">the</span> Docker client, which sent <span class="hljs-keyword">it</span>
+    <span class="hljs-built_in">to</span> your terminal.
+​
+To <span class="hljs-keyword">try</span> something more ambitious, you can run <span class="hljs-keyword">an</span> Ubuntu container <span class="hljs-keyword">with</span>:
+ $ docker run -<span class="hljs-keyword">it</span> ubuntu bash
+​
+Share images, automate workflows, <span class="hljs-keyword">and</span> more <span class="hljs-keyword">with</span> <span class="hljs-keyword">a</span> free Docker ID:
+ <span class="hljs-keyword">https</span>://hub.docker.com/
+​
+For more examples <span class="hljs-keyword">and</span> ideas, visit:
+ <span class="hljs-keyword">https</span>://docs.docker.com/<span class="hljs-built_in">get</span>-started/</code></pre></div>
+<p>若能正常输出以上信息，则说明安装成功。<br />
+镜像加速<br />
+如果在使用过程中发现拉取 Docker 镜像十分缓慢，可以配置 Docker 。<br />
+添加内核参数<br />
+如果在 CentOS 使用 Docker 看到下面的这些警告信息：</p>
+<div><pre class="hljs"><code><span class="hljs-symbol">WARNING: </span>bridge-nf-call-iptables is disabled
+<span class="hljs-symbol">WARNING: </span>bridge-nf-call-ip6tables is disabled</code></pre></div>
+<p>请添加内核配置参数以启用这些功能。</p>
+<div><pre class="hljs"><code>$ sudo tee -<span class="hljs-selector-tag">a</span> /etc/sysctl<span class="hljs-selector-class">.conf</span> &lt;&lt;-EOF
+net<span class="hljs-selector-class">.bridge</span><span class="hljs-selector-class">.bridge-nf-call-ip6tables</span> = <span class="hljs-number">1</span>
+net<span class="hljs-selector-class">.bridge</span><span class="hljs-selector-class">.bridge-nf-call-iptables</span> = <span class="hljs-number">1</span>
+EOF</code></pre></div>
+<p>然后重新加载 sysctl.conf 即可<br />
+<code>$ sudo sysctl -p</code></p>
+</div>
+      </article>
+    </div>
+  </body>
+</html>

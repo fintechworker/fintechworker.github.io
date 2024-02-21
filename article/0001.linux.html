@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <meta charset="UTF-8">
+	<meta name="keywords" content="IT,Linux,Docker,K8S,网络, Java, Python, XHTML, JavaScript">
+	<meta name="description" content="IT技术分享">
+    <!-- libs css-->
+    <link rel="stylesheet" href="/_assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/_assets/css/tool.css">
+    <!-- libs js -->
+    <script src="/_assets/js/jquery-1.8.2.min.js"></script>
+    <script src="/_assets/js/jquery.ba-hashchange.js"></script>
+    <script src="/_assets/js/onePage.js"></script>
+    <script src="/_assets/js/tool.js"></script>
+    <script src="/_assets/js/base.js"></script>
+    <!-- style -->
+    <link rel="stylesheet" href="/_assets/style.css">
+    <link rel="stylesheet" href="/_assets/css/media.css">
+    <title>0001.linux指标文件 - IT 民工</title>
+  </head>
+  <body>
+    <div class="main">
+      <nav class="navigation">
+        <a href="/">IT 民工</a>
+      </nav>
+      <article>
+        <header>
+          <h1 class="article-title">0001.linux指标文件</h1>
+          <div class="article-info">
+            <div>
+              <span>Created At：<time datetime="1705451070241">2024-01-17 08:24</time></span>
+              <span>Updated At：<time datetime="1706766939716">2024-02-01 13:55</time></span>
+            </div>
+            
+          </div>
+        </header>
+        <div class="article-content markdown-body"><p>1.CPU指标获取<br />
+解析 /proc/stat ，获取 user、nice、sys、irq、softirq、steal、guest、guestnice、idle、iowait<br />
+2.CPU负载获取<br />
+Linux /proc/loadavg 文件内容如下</p>
+<blockquote>
+<p>cat /proc/loadavg<br />
+4.61 4.36 4.15 9/84 5662<br />
+lavg_1 (4.61) 1 分钟平均负载<br />
+lavg_5 (4.36) 5 分钟平均负载<br />
+lavg_15(4.15) 15 分钟平均负载<br />
+nr_running (9) 在采样时刻，运行队列的任务的数目，与 /proc/stat 的 procs_running 表示相同意思<br />
+nr_threads (84) 在采样时刻，系统中活跃的任务的个数（不包括运行已经结束的任务）<br />
+last_pid(5662) 最大的 pid 值，包括轻量级进程，即线程。<br />
+3.磁盘信息获取<br />
+解析 /proc/diskstats<br />
+4.memory信息查询<br />
+解析 /proc/meminfo 文件获取内存信息并且解析出 MemTotal 字段即为物理内存总大小<br />
+5.网卡信息<br />
+解析 /proc/net/dev 文件获取网卡相关的信息，相关信息如下 - 接收端：bytes、packets、errs、drop、fifo、frame、compressed、multicast - 发送端：bytes、packets、errs、drop、fifo、colls、carrier、compressed - 单位时间内获取两次接收端的 packets 的值</p>
+</blockquote>
+</div>
+      </article>
+    </div>
+  </body>
+</html>
