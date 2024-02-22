@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="zh">
+<head>
+<!-- head--->
     
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
     <meta charset="UTF-8">
@@ -18,25 +19,51 @@
     <!-- style -->
     <link rel="stylesheet" href="/_assets/style.css">
     <link rel="stylesheet" href="/_assets/css/media.css">
-    <title>007.使用 Dockerfile 定制镜像 - IT 民工</title>
-  <link rel="stylesheet" href="/_markdown_plugin_assets/highlight.js/atom-one-light.css" /></head>
-  <body>
-    <div class="main">
-      <nav class="navigation">
-        <a href="/">IT 民工</a>
-      </nav>
-      <article>
-        <header>
-          <h1 class="article-title">007.使用 Dockerfile 定制镜像</h1>
-          <div class="article-info">
-            <div>
-              <span>Created At：<time datetime="1707120756424">2024-02-05 16:12</time></span>
-              <span>Updated At：<time datetime="1707122307761">2024-02-05 16:38</time></span>
-            </div>
-            
-          </div>
-        </header>
-        <div class="article-content markdown-body"><h3 id="1from-指定基础镜像">1.FROM 指定基础镜像</h3>
+	<meta name="keywords" content="007.使用 Dockerfile 定制镜像">
+    <title>007.使用 Dockerfile 定制镜像</title>
+<link rel="stylesheet" href="/_markdown_plugin_assets/highlight.js/atom-one-light.css" /></head>
+<body>
+<!-- 头部 -->
+<div class="header">
+    <div class="container header-all phone">
+        <div class="logo"><img src="/_assets/images/logo.png"/></div>
+        <div class="phone-show" id="phone-show">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <ul class="nav" id="header-nav">
+		
+		
+		
+          <li><a href="/index"><i class="iconfont">&#xe6cb;</i>首页</a></li>
+        
+		
+          <li><a href="/archives"><i class="iconfont">&#xe690;</i>归档</a></li>
+        
+		
+          <li><a href="/about"><i class="iconfont">&#xe69e;</i>关于</a></li>
+        
+		 
+		
+          <li><a href="/rss.xml"><i class="iconfont">&#xe6cb;</i>RSS</a></li>
+          
+	           
+        </ul>
+    </div>
+</div>
+<t></t>
+
+<!-- 内容 -->
+<div class="content container" data-content>
+    <!-- 二级 -->
+        <div class="left">
+            <!-- 文章主体 -->
+            <div class="contents">
+                <div class="title">007.使用 Dockerfile 定制镜像</div>
+                <div class="title_t">时间：2024-02-05 16:12丨编辑：<a href="/index">IT民工</a></div>
+                <div class="ner">
+                  <h3 id="1from-指定基础镜像">1.FROM 指定基础镜像</h3>
 <div><pre class="hljs"><code><span class="hljs-keyword">FROM</span> nginx
 RUN echo <span class="hljs-string">'&lt;h1&gt;Hello, Docker!&lt;/h1&gt;'</span> &gt; <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/nginx/</span>html/index.html</code></pre></div>
 <p>Docker 还存在一个特殊的镜像，名为 scratch。这个镜像是虚拟的概念，并不实际存在，它表示一个空白的镜像。</p>
@@ -91,8 +118,78 @@ Sending <span class="hljs-keyword">build </span><span class="hljs-built_in">cont
 那么为什么会有人误以为 . 是指定 Dockerfile 所在目录呢？这是因为在默认情况下，如果不额外指定 Dockerfile 的话，会将上下文目录下的名为 Dockerfile 的文件作为 Dockerfile。<br />
 这只是默认行为，实际上 Dockerfile 的文件名并不要求必须为 Dockerfile，而且并不要求必须位于上下文目录中，比如可以用<code> -f ../Dockerfile.php</code> 参数指定某个文件作为 Dockerfile。<br />
 当然，一般大家习惯性的会使用默认的文件名 Dockerfile，以及会将其置于镜像构建上下文目录中。</p>
-</div>
-      </article>
+
+                </div>
+               
+                <div class="label">转载请注明出处！--- IT民工</div>
+                <div class="next">
+                    <a href="javascript:;">
+						</a>
+                </div>
+            </div>           
+        </div>
+        <div class="right" id="list-right">
+            <!-- 关于我 -->
+            <div class="thisMe">
+                <div class="touPick">
+				<p> IT 民工 </p>
+				<img src="/_assets/images/aboutme.jpg" alt="图片走丢了" title="IT民工"></div>
+                <ul>
+                    <li><a href="/index" style="text-decoration:none;" title="主页" class="iconfont">&#xe619;</a></li>
+                    <li><a target="_blank" href="mailto:dliangliang@cock.li" title="联系我" style="text-decoration:none;" class="iconfont">&#xe667;</a></li>
+                    <li><a href="/about" style="text-decoration:none;" title="关于我" class="iconfont">&#xe645;</a></li>
+                </ul>
+            </div>
+            <!-- 建站史 -->
+            <div class="ku">
+                <div class="title">建站史</div>
+                <div class="shus">
+                    <div class="line"></div>
+                    <div class="shus-cont">
+                        <a>Joplin</a><br>
+                        <a>MarkDown</a><br>
+                        <a>Pages Publisher</a><br>
+                        <a>GitHub Pages</a><br>
+                        <a>Cloudflare Pages</a><br>
+                        <a>Vercel Project</a><br>
+                        <a href="javascript:;" class="href-all">查看全部</a>
+                    </div>
+                </div>
+            </div>
+   
+            <!-- 标签云 -->
+            <div class="labels" id="labels">
+                <div class="title">标签云</div>
+                <a>打工狗</a>
+                <a>代码奴</a>
+                <a>金融嗜好</a>
+                <a>X瘾患者</a>
+                <a>偶尔撸B</a>
+                <a>精分患者</a>
+                <a>软肋不少</a>
+                <a>喜历史</a>
+            </div>
+            <!-- 友情链接 -->
+            <div class="ku">
+                <div class="title">左邻右舍</div>
+                <div class="neighbor">
+                    <a target="_blank" href="https://www.zhihu.com/people/economicsshare" title="知乎：巴甫洛夫的实验">知乎：巴甫洛夫的实验</a>
+                    <a target="_blank" href="https://space.bilibili.com/18059632" title="B站：巴甫洛夫的实验">B站：巴甫洛夫的实验</a>
+                    <a target="_blank" href="https://author.baidu.com/home?from=bjh_article&app_id=1790832269223398" title="百家号：巴甫洛夫的实验">百家号：巴甫洛夫的实验</a>                  
+                </div>
+            </div>
+        </div>
     </div>
-  </body>
+</div>
+<!-- 底部 -->
+<div class="footer">
+    Design by <a href="#">IT民工</a>
+    <br>&copy; <script> document.write(new Date().getFullYear()); </script> <a href="#">IT民工</a>
+</div>
+<!-- 侧边栏 -->
+<div class="ce">
+    <a class="ceL" href="#" title="返回顶部"><i class="iconfont top">&#xe65b;</i></a>
+</div>
+
+</body>
 </html>
