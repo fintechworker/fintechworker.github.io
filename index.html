@@ -70,7 +70,13 @@
 						<div class="lvti">
 							<h2><a href="/article/009.dockerfile">009.Dockerfile指令详解</a></h2>
 							
-							<div class="content">...</div>
+							<div class="content">1.COPY 复制文件
+
+格式：
+
+COPY [--chown=&amp;lt;user&amp;gt;:&amp;lt;group&amp;gt;] &amp;lt;源路径&amp;gt;... &amp;lt;目标路径&amp;gt;COPY [--chown=&amp;lt;user&amp;gt;:&amp;lt;group&amp;gt;] [&amp;quot;&amp;lt;源路径1&amp;gt;&amp;quot;,... &amp;quot;&amp;lt;目标路径&amp;gt;&amp;quot;]
+
+和 RUN 指令一样，也有两...</div>
 							<ul class="entry-meta">
 								<li>
 									<i class="iconfont">&#xe601;</i>
@@ -94,7 +100,11 @@
 						<div class="lvti">
 							<h2><a href="/article/008.dockerfile">008.dockerfile 哪些命令会构建新的镜像层</a></h2>
 							
-							<div class="content">...</div>
+							<div class="content">&amp;lt;a id=&amp;quot;Dockerfile__0&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;Dockerfile: 哪些命令会构建新的镜像层
+
+&amp;lt;a id=&amp;quot;_2&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;导语
+
+在使用 Docker 进行容器化应用部署时，Dockerfile 是非常重要的一环。Dockerfile 是一个用于构建 Docker 镜像的文件，通过在 Dockerf...</div>
 							<ul class="entry-meta">
 								<li>
 									<i class="iconfont">&#xe601;</i>
@@ -118,7 +128,19 @@
 						<div class="lvti">
 							<h2><a href="/article/007.-dockerfile">007.使用 Dockerfile 定制镜像</a></h2>
 							
-							<div class="content">...</div>
+							<div class="content">1.FROM 指定基础镜像
+
+
+FROM nginx
+RUN echo &amp;#39;&amp;lt;h1&amp;gt;Hello, Docker!&amp;lt;/h1&amp;gt;&amp;#39; &amp;gt; /usr/share/nginx/html/index.html
+
+Docker 还存在一个特殊的镜像，名为 scratch。这个镜像是虚拟的概念，并不实际存在，它表示一个空白的镜像。
+
+FROM scratch
+...
+
+
+...</div>
 							<ul class="entry-meta">
 								<li>
 									<i class="iconfont">&#xe601;</i>
@@ -142,7 +164,12 @@
 						<div class="lvti">
 							<h2><a href="/article/006.docker">006.docker命令</a></h2>
 							
-							<div class="content">...</div>
+							<div class="content">1.获取镜像
+
+从 Docker 镜像仓库获取镜像的命令是 docker pull。其命令格式为：
+$ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
+具体的选项可以通过 docker pull --help 命令看到，这里我们说一下镜像名称的格式。
+Docker 镜像仓库地址：地址的格式一般是 &amp;lt;域名/IP&amp;gt;[:端口号]。默认...</div>
 							<ul class="entry-meta">
 								<li>
 									<i class="iconfont">&#xe601;</i>
@@ -166,7 +193,16 @@
 						<div class="lvti">
 							<h2><a href="/article/005.centos-docker">005.CentOS - Docker — 从入门到实践</a></h2>
 							
-							<div class="content">...</div>
+							<div class="content">CentOS
+
+警告：切勿在没有配置 Docker YUM 源的情况下直接使用 yum 命令安装 Docker.
+
+准备工作
+
+系统要求
+Docker 支持 64 位版本 CentOS 7/8，并且要求内核版本不低于 3.10。 CentOS 7 满足最低内核的要求，但由于内核版本比较低，部分功能（如 overlay2 存储层驱动）无法使用，并且部分功能可能不太稳定。
+卸载旧版本
+旧版本的 Doc...</div>
 							<ul class="entry-meta">
 								<li>
 									<i class="iconfont">&#xe601;</i>
