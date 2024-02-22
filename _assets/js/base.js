@@ -27,61 +27,6 @@ function header_nav() {
         $(t).html($(t).html());
     });
 
-
-    $('body').onePage({
-        dUrl : 'http://127.0.0.1:4545/www/bk/',
-        goHome : function(){
-            $.get("b_list.html",[],function (e) {
-                $("#list-left").html(e);
-            });
-        } ,
-        callBack : function(data){
-            $("#list-left").html(data);
-        },
-        loading:function () {
-            $("#Loading").show();
-        },
-        outLoading:function () {
-            $("#Loading").hide();
-        }
-    });
-
-    /*function linke(href,type){
-        typeUrl=type;
-        if(href!="javascript:;"&&href!="#"&&href!="javascript:void;"){
-            $.ajax({
-                url:href,
-                dataType:'html',
-                success:function (e) {
-                    if(!type || type==1){
-                        $("#list-1").hide();
-                        $("#panel-sou").hide();
-                        $("#list-left").html(e);
-                        history.pushState({},"文章详情",href);
-                    }else if(type==2){
-
-                    }else if(type==3){
-
-                    }else if(type==4){
-
-                    }
-                }
-            });
-            return false;
-        }else{
-            return true;
-        }
-    }
-    window.onpopstate = function(e){
-        linke(document.location,typeUrl);
-    };
-    var typeUrl=1;
-    $("a[href]").click(function () {
-        var href=$(this).attr("href");
-        var type=$(this).attr("t");//1.详情 2.首页 3.列表 4.搜索
-        /!* 过滤 *!/
-        return linke(href,type);
-    });*/
 }
 
 $(function () {
