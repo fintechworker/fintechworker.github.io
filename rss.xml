@@ -4,7 +4,7 @@
         <title></title>
         <link>undefined</link>
         <description>undefined</description>
-        <lastBuildDate>Thu, 22 Feb 2024 01:39:07 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 22 Feb 2024 01:50:28 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Joplin Pages Publisher</generator>
         <item>
@@ -354,40 +354,6 @@ RUN <span class="hljs-keyword">lll </span><span class="hljs-comment">; ls</span>
 <span class="hljs-keyword">SHELL</span><span class="language-bash"> [<span class="hljs-string">"/bin/sh"</span>, <span class="hljs-string">"-cex"</span>]</span>
 <span class="hljs-comment"># /bin/sh -cex "nginx"</span>
 <span class="hljs-keyword">CMD</span><span class="language-bash"> nginx</span></code></pre></div>
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[008.dockerfile 哪些命令会构建新的镜像层]]></title>
-            <guid>ffdd163ce89e449f891380e816e1b54f</guid>
-            <pubDate>Mon, 05 Feb 2024 08:44:53 GMT</pubDate>
-            <content:encoded><![CDATA[<h2 id="dockerfile-哪些命令会构建新的镜像层"><a id="Dockerfile__0" class="jop-noMdConv"></a>Dockerfile: 哪些命令会构建新的镜像层</h2>
-<h3 id="导语"><a id="_2" class="jop-noMdConv"></a>导语</h3>
-<p>在使用 Docker 进行容器化应用部署时，Dockerfile 是非常重要的一环。Dockerfile 是一个用于构建 Docker 镜像的文件，通过在 Dockerfile 中定义一系列的命令，我们可以自动化地构建、配置和部署容器化应用。在 Dockerfile 中，有一些特定的命令会导致 Docker 构建新的镜像层。本文将介绍这些命令，并提供相应的代码示例。</p>
-<h3 id="1-dockerfile-简介"><a id="1_Dockerfile__6" class="jop-noMdConv"></a>1. Dockerfile 简介</h3>
-<p>Dockerfile 是一个文本文件，其中包含了一系列用于构建 Docker 镜像的命令。通过 Dockerfile，我们可以定义从基础镜像到最终镜像的构建过程，并指定容器运行时的配置。使用 Dockerfile 可以实现自动化、可重复的镜像构建流程。</p>
-<h3 id="2-dockerfile-构建新的镜像层的命令"><a id="2_Dockerfile__10" class="jop-noMdConv"></a>2. Dockerfile 构建新的镜像层的命令</h3>
-<h4 id="21-from"><a id="21_FROM_12" class="jop-noMdConv"></a>2.1 FROM</h4>
-<p><code>FROM</code> 命令用于指定基础镜像。在 Dockerfile 中，通常以 <code>FROM</code> 开头。当 Docker 构建镜像时，会从 Docker Hub 或本地镜像仓库拉取指定的基础镜像，并在其基础上构建新的镜像层。</p>
-<p>以下是一个使用 <code>FROM</code> 命令的示例：</p>
-<p>上述示例中，我们指定了基础镜像为最新版本的 Ubuntu。</p>
-<h4 id="22-run"><a id="22_RUN_24" class="jop-noMdConv"></a>2.2 RUN</h4>
-<p><code>RUN</code> 命令用于在容器中执行一条或多条命令，并将结果保存为新的镜像层。可以在 <code>RUN</code> 命令中执行任何可以在容器内部执行的命令，例如安装软件包、运行脚本等。每个 <code>RUN</code> 命令都会在当前镜像层的基础上生成一个新的镜像层。</p>
-<p>以下是一个使用 <code>RUN</code> 命令的示例：</p>
-<p>上述示例中，我们使用 <code>RUN</code> 命令更新了软件包列表，并安装了 Nginx。</p>
-<h4 id="23-copy"><a id="23_COPY_36" class="jop-noMdConv"></a>2.3 COPY</h4>
-<p><code>COPY</code> 命令用于将文件或目录从构建上下文复制到镜像中。每个 <code>COPY</code> 命令都会在当前镜像层的基础上生成一个新的镜像层。</p>
-<p>以下是一个使用 <code>COPY</code> 命令的示例：</p>
-<p>上述示例中，我们将 <code>app.jar</code> 文件复制到镜像的 <code>/app/</code> 目录下。</p>
-<h4 id="24-add"><a id="24_ADD_48" class="jop-noMdConv"></a>2.4 ADD</h4>
-<p><code>ADD</code> 命令功能类似于 <code>COPY</code> 命令，但是在复制文件或目录的同时，还支持自动解压缩和远程文件下载。每个 <code>ADD</code> 命令也会在当前镜像层的基础上生成一个新的镜像层。</p>
-<p>以下是一个使用 <code>ADD</code> 命令的示例：</p>
-<p>上述示例中，我们将远程的 <code>file.tar.gz</code> 文件下载并解压缩到镜像的 <code>/data/</code> 目录下。</p>
-<h4 id="25-cmd"><a id="25_CMD_60" class="jop-noMdConv"></a>2.5 CMD</h4>
-<p><code>CMD</code> 命令用于指定容器启动时要执行的命令。每个 Dockerfile 只能有一个 <code>CMD</code> 命令，如果有多个 <code>CMD</code> 命令，则只有最后一个有效。<code>CMD</code> 命令在创建容器时被指定为容器的默认命令，可以在运行容器时覆盖。</p>
-<p>以下是一个使用 <code>CMD</code> 命令的示例：</p>
-<p>上述示例中，我们指定了容器启动时要执行的命令为 <code>java -jar app.jar</code>。</p>
-<h4 id="26-entrypoint">2.6 ENTRYPOINT</h4>
-<p><code>ENTRYPOINT</code> 命令也用于指定容器启动时要执行的命令。</p>
 ]]></content:encoded>
         </item>
         <item>
