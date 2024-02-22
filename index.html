@@ -61,7 +61,7 @@
            <div class="left" id="list-left">
             <ul class="list row list-hen">
                 <li class="title title-lv">
-                    <span class="badge badge-secondary">HOT</span>最热文章<label><a href="/article/005.centos-docker">005.CentOS - Docker — 从入门到实践</a></label>
+                    <span class="badge badge-secondary">HOT</span>最热文章<label><a href="/article/006.docker">006.docker命令</a></label>
                 </li>
 				
 				
@@ -69,7 +69,12 @@
 					<a href="javascript:;" class="t2_pick"><img src="/_assets/images/404-2.png" alt=""></a>
 						<div class="lvti">
 							<h2><a href="/article/009.dockerfile">009.Dockerfile指令详解</a></h2>
-							<div class="content">...</div>
+							
+							<div class="content">1.COPY 复制文件
+
+格式：
+
+COPY [--chown=&amp;lt;user&amp;gt;:&amp;lt;group&amp;gt;] &amp;lt;源路径&amp;gt;... &amp;lt;目标路径&amp;gt;COPY [--chown...</div>
 							<ul class="entry-meta">
 								<li>
 									<i class="iconfont">&#xe601;</i>
@@ -92,7 +97,10 @@
 					<a href="javascript:;" class="t2_pick"><img src="/_assets/images/404-2.png" alt=""></a>
 						<div class="lvti">
 							<h2><a href="/article/008.dockerfile">008.dockerfile 哪些命令会构建新的镜像层</a></h2>
-							<div class="content">...</div>
+							
+							<div class="content">&amp;lt;a id=&amp;quot;Dockerfile__0&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;Dockerfile: 哪些命令会构建新的镜像层
+
+&amp;lt;a id=&amp;quot;_2&amp;quot;&amp;gt...</div>
 							<ul class="entry-meta">
 								<li>
 									<i class="iconfont">&#xe601;</i>
@@ -115,7 +123,12 @@
 					<a href="javascript:;" class="t2_pick"><img src="/_assets/images/404-2.png" alt=""></a>
 						<div class="lvti">
 							<h2><a href="/article/007.-dockerfile">007.使用 Dockerfile 定制镜像</a></h2>
-							<div class="content">...</div>
+							
+							<div class="content">1.FROM 指定基础镜像
+
+
+FROM nginx
+RUN echo &amp;#39;&amp;lt;h1&amp;gt;Hello, Docker!&amp;lt;/h1&amp;gt;&amp;#39; &amp;gt; /usr/share/ng...</div>
 							<ul class="entry-meta">
 								<li>
 									<i class="iconfont">&#xe601;</i>
@@ -138,7 +151,11 @@
 					<a href="javascript:;" class="t2_pick"><img src="/_assets/images/404-2.png" alt=""></a>
 						<div class="lvti">
 							<h2><a href="/article/006.docker">006.docker命令</a></h2>
-							<div class="content">...</div>
+							
+							<div class="content">1.获取镜像
+
+从 Docker 镜像仓库获取镜像的命令是 docker pull。其命令格式为：
+$ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[...</div>
 							<ul class="entry-meta">
 								<li>
 									<i class="iconfont">&#xe601;</i>
@@ -161,7 +178,15 @@
 					<a href="javascript:;" class="t2_pick"><img src="/_assets/images/404-2.png" alt=""></a>
 						<div class="lvti">
 							<h2><a href="/article/005.centos-docker">005.CentOS - Docker — 从入门到实践</a></h2>
-							<div class="content">...</div>
+							
+							<div class="content">CentOS
+
+警告：切勿在没有配置 Docker YUM 源的情况下直接使用 yum 命令安装 Docker.
+
+准备工作
+
+系统要求
+Docker 支持 64 位版本 CentOS 7/8，并且要...</div>
 							<ul class="entry-meta">
 								<li>
 									<i class="iconfont">&#xe601;</i>
