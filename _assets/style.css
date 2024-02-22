@@ -237,12 +237,12 @@ t{
     margin-bottom: 10px;
 }
 .left{
-    width: 77%;
+    width: 1000px;
 }
 .right{
     flex-shrink:0;
-    margin-left: 0px;
-    width: 23%;
+    margin-left: 15px;
+    width: 300px;
     padding: 15px 0;
 }
 .right>div{
