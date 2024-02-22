@@ -241,8 +241,8 @@ t{
 }
 .right{
     flex-shrink:0;
-    margin-left: 15px;
-    width: 33%;
+    margin-left: 0px;
+    width: 23%;
     padding: 15px 0;
 }
 .right>div{
