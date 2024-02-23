@@ -237,7 +237,7 @@ t{
     margin-bottom: 10px;
 }
 .left{
-    width: 77%;
+    width: 100%;
 }
 .right{
     flex-shrink:0;
