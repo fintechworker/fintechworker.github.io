@@ -4,9 +4,22 @@
         <title></title>
         <link>undefined</link>
         <description>undefined</description>
-        <lastBuildDate>Fri, 23 Feb 2024 08:50:59 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 23 Feb 2024 09:06:31 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Joplin Pages Publisher</generator>
+        <item>
+            <title><![CDATA[docker配置日志]]></title>
+            <guid>5c6966d71cfd4b058dd1b15cb88818a6</guid>
+            <pubDate>Mon, 15 Jan 2024 08:28:10 GMT</pubDate>
+            <content:encoded><![CDATA[/etc/docker/daemon.json<br />
+{<br />
+"log-driver": "json-file",<br />
+"log-opts": {<br />
+"max-size": "10m",<br />
+"max-file": "3"<br />
+}<br />
+}]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[普通用户运行Docker]]></title>
             <guid>349573aa38bc4745bbd197b4a1bd2f1d</guid>
