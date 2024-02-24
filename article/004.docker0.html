@@ -20,9 +20,9 @@
     <!-- style -->
     <link rel="stylesheet" href="/_assets/style.css">
     <link rel="stylesheet" href="/_assets/css/media.css">
-	<meta name="keywords" content="docker配置日志">
-    <title>docker配置日志-IT民工</title>
-</head>
+	<meta name="keywords" content="如何修改docker0网桥地址">
+    <title>如何修改docker0网桥地址-IT民工</title>
+<link rel="stylesheet" href="/_markdown_plugin_assets/highlight.js/atom-one-light.css" /></head>
 <body>
 <!-- 头部 -->
 <div class="header">
@@ -94,17 +94,28 @@
         <div class="left">
             <!-- 文章主体 -->
             <div class="contents">
-                <div class="title">docker配置日志</div>
-                <div class="title_t">时间：2024-01-15 16:28丨编辑：<a href="/index.html">IT民工</a></div>
+                <div class="title">如何修改docker0网桥地址</div>
+                <div class="title_t">时间：2024-01-23 17:06丨编辑：<a href="/index.html">IT民工</a></div>
                 <div class="ner">
-                  /etc/docker/daemon.json<br />
-{<br />
-"log-driver": "json-file",<br />
-"log-opts": {<br />
-"max-size": "10m",<br />
-"max-file": "3"<br />
-}<br />
-}
+                  <p>第一步 删除原有配置：</p>
+<div><pre class="hljs"><code>sudo<span class="hljs-built_in"> service </span>docker stop
+sudo<span class="hljs-built_in"> ip </span>link <span class="hljs-built_in">set</span> dev docker0 down
+sudo brctl delbr docker0
+sudo iptables -t<span class="hljs-built_in"> nat </span>-F POSTROUTING</code></pre></div>
+<p>第二步 创建新的网桥：</p>
+<div><pre class="hljs"><code>sudo brctl addbr docker0
+sudo<span class="hljs-built_in"> ip </span>addr <span class="hljs-built_in">add</span> 192.168.200.1/24 dev docker0
+sudo<span class="hljs-built_in"> ip </span>link <span class="hljs-built_in">set</span> dev docker0 up</code></pre></div>
+<p>第三步 配置Docker的文件：<br />
+注意： 这里是 增加下面的配置</p>
+<div><pre class="hljs"><code>vi /etc/docker/daemon.json
+{
+<span class="hljs-meta">...</span> <span class="language-javascript"><span class="hljs-string">"bip"</span>: <span class="hljs-string">"192.168.200.1/24"</span>,</span>
+<span class="hljs-meta">...</span>
+}</code></pre></div>
+<p>第四步 重启主机：</p>
+<div><pre class="hljs"><code><span class="hljs-attribute">sudo reboot</span></code></pre></div>
+
                 </div>
 				<div style="padding:15px;">
 				   <a href="javascript:;">
