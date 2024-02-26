@@ -20,8 +20,8 @@
     <!-- style -->
     <link rel="stylesheet" href="/_assets/style.css">
     <link rel="stylesheet" href="/_assets/css/media.css">
-	<meta name="keywords" content="docker配置日志">
-    <title>docker配置日志-IT民工</title>
+	<meta name="keywords" content="docker自定义数据目录">
+    <title>docker自定义数据目录-IT民工</title>
 </head>
 <body>
 <!-- 头部 -->
@@ -105,17 +105,19 @@
         <div class="left">
             <!-- 文章主体 -->
             <div class="contents">
-                <div class="title">docker配置日志</div>
-                <div class="title_t">时间：2024-01-15 16:28丨编辑：<a href="/index.html">IT民工</a></div>
+                <div class="title">docker自定义数据目录</div>
+                <div class="title_t">时间：2024-01-15 16:29丨编辑：<a href="/index.html">IT民工</a></div>
                 <div class="ner">
-                  /etc/docker/daemon.json<br />
-{<br />
-"log-driver": "json-file",<br />
-"log-opts": {<br />
-"max-size": "10m",<br />
-"max-file": "3"<br />
+                  <p>1.systemctl stop docker<br />
+2.mv /var/lib/docker /var/lib/docker.bak<br />
+3.mkdir /data/docker<br />
+4.vim /etc/docker/daemon.json<br />
+{</p>
+<p>"data-root": "/data/docker"<br />
 }<br />
-}
+5.systemctl start docker<br />
+6.docker info|grep 'Docker Root Dir'</p>
+
                 </div>
 				<div style="padding:15px;">
 				   <a href="javascript:;">

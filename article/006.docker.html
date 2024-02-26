@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<!-- head--->
+    
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <meta charset="UTF-8">
+	<meta name="keywords" content="IT,Linux,Docker,K8S,网络, Java, Python, XHTML, JavaScript">
+	<meta name="keywords" content="IT民工,IT Worker">
+	<meta name="description" content="IT技术分享">
+    <!-- libs css-->
+    <link rel="stylesheet" href="/_assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/_assets/css/tool.css">
+    <!-- libs js -->
+    <script src="/_assets/js/jquery-1.8.2.min.js"></script>
+    <script src="/_assets/js/jquery.ba-hashchange.js"></script>
+    <!--<script src="/_assets/js/onePage.js"></script>-->
+    <script src="/_assets/js/tool.js"></script>
+    <script src="/_assets/js/base.js"></script>
+    <!-- style -->
+    <link rel="stylesheet" href="/_assets/style.css">
+    <link rel="stylesheet" href="/_assets/css/media.css">
+	<meta name="keywords" content="Docker命令">
+    <title>Docker命令-IT民工</title>
+<link rel="stylesheet" href="/_markdown_plugin_assets/highlight.js/atom-one-light.css" /></head>
+<body>
+<!-- 头部 -->
+<div class="header">
+    <div class="container header-all phone">
+        <div class="logo"><a href="/index.html"><img src="/_assets/images/logo.png"/></a></div>
+        <div class="phone-show" id="phone-show">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <ul class="nav" id="header-nav">
+		
+		
+		
+          <li><a href="/index.html"><i class="iconfont">&#xe6cb;</i>首页</a></li>
+        
+		
+          <li><a href="/archives.html"><i class="iconfont">&#xe690;</i>归档</a></li>
+        
+		
+          <li><a href="/about.html"><i class="iconfont">&#xe69e;</i>关于</a></li>
+        
+		 
+		
+          <li><a href="/rss.xml"><i class="iconfont">&#xe6cb;</i>RSS</a></li>
+          
+	           
+        </ul>
+    </div>
+</div>
+<t></t>
+
+<!-- 内容 -->
+<div class="content container" data-content>
+    <!-- 一级 -->
+					
+    <ul class="list row bj-white" id="list-1">
+        <li class="title">
+            <i class="iconfont c-hong">&#xe940;</i>热门推介<label>欢迎访问IT民工的网站！</label>
+        </li>
+        <div>
+            <li class="cont-req">
+                <a class="t1_pick"><img src="/_assets/images/header-img-1.jpg"/></a>
+				
+					<h3><a href="/article/009.dockerfile.html" >Dockerfile指令详解</a></h3>
+
+				
+            </li>
+            <li class="cont-req">
+                <a class="t1_pick"><img src="/_assets/images/header-img-2.jpg"/></a>
+				
+					<h3><a href="/article/008.dockerfile.html" >Dockerfile 哪些命令会构建新的镜像层</a></h3>
+				
+            </li>
+            <li class="cont-req">
+                <a class="t1_pick"><img src="/_assets/images/header-img-3.jpg"/></a>
+				
+					<h3><a href="/article/007.-dockerfile.html" >使用 Dockerfile 定制镜像</a></h3>
+				
+            </li>
+            <li class="cont-req">
+                <a class="t1_pick"><img src="/_assets/images/header-img-4.jpg"/></a>
+				
+					<h3><a href="/article/006.docker.html" >Docker命令</a></h3>
+				
+				
+            </li>
+            <li class="cont-req">
+                <a class="t1_pick"><img src="/_assets/images/header-img-5.jpg"/></a>
+				
+					<h3><a href="/article/005.centos-docker.html" >Centos安装docker</a></h3>
+				
+				
+            </li>
+        </div>
+    </ul>
+    <!-- 二级 -->
+    <div class="love2" >
+
+        <div class="left">
+            <!-- 文章主体 -->
+            <div class="contents">
+                <div class="title">Docker命令</div>
+                <div class="title_t">时间：2024-02-05 14:10丨编辑：<a href="/index.html">IT民工</a></div>
+                <div class="ner">
+                  <h3 id="1获取镜像">1.获取镜像</h3>
+<p>从 Docker 镜像仓库获取镜像的命令是 docker pull。其命令格式为：<br />
+<code>$ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]</code><br />
+具体的选项可以通过 docker pull --help 命令看到，这里我们说一下镜像名称的格式。<br />
+Docker 镜像仓库地址：地址的格式一般是 &lt;域名/IP&gt;[:端口号]。默认地址是 Docker Hub(docker.io)。<br />
+仓库名：如之前所说，这里的仓库名是两段式名称，即 &lt;用户名&gt;/&lt;软件名&gt;。对于 Docker Hub，如果不给出用户名，则默认为 library，也就是官方镜像。<br />
+比如：<br />
+<code>$ docker pull ubuntu:18.04</code></p>
+<h3 id="2运行镜像">2.运行镜像</h3>
+<p><code>$ docker run -it --rm ubuntu:18.04 bash</code><br />
+docker run 就是运行容器的命令，具体格式我们会在 容器 一节进行详细讲解，我们这里简要的说明一下上面用到的参数。<br />
+-it：这是两个参数，一个是 -i：交互式操作，一个是 -t 终端。我们这里打算进入 bash 执行一些命令并查看返回结果，因此我们需要交互式终端。<br />
+--rm：这个参数是说容器退出后随之将其删除。默认情况下，为了排障需求，退出的容器并不会立即删除，除非手动 docker rm。我们这里只是随便执行个命令，看看结果，不需要排障和保留结果，因此使用 --rm 可以避免浪费空间。<br />
+ubuntu:18.04：这是指用 ubuntu:18.04 镜像为基础来启动容器。<br />
+bash：放在镜像名后的是 命令，这里我们希望有个交互式 Shell，因此用的是 bash。<br />
+进入容器后，我们可以在 Shell 下操作，执行任何所需的命令。这里，我们执行了 cat /etc/os-release，这是 Linux 常用的查看当前系统版本的命令，从返回的结果可以看到容器内是 Ubuntu 18.04.1 LTS 系统。</p>
+<h3 id="3列出镜像">3.列出镜像</h3>
+<p>要想列出已经下载下来的镜像，可以使用 <code>docker image ls</code> 命令</p>
+<h3 id="4镜像体积">4.镜像体积</h3>
+<p><code>$ docker system df</code></p>
+<h3 id="5虚悬镜像">5.虚悬镜像</h3>
+<p>由于新旧镜像同名，旧镜像名称被取消，从而出现仓库名、标签均为 <none class="jop-noMdConv"> 的镜像。这类无标签镜像也被称为 虚悬镜像(dangling image) ，可以用下面的命令专门显示这类镜像：<br />
+<code>$ docker image ls -f dangling=true</code><br />
+一般来说，虚悬镜像已经失去了存在的价值，是可以随意删除的，可以用下面的命令删除。<br />
+<code>$ docker image prune</code></none></p>
+<h3 id="6中间层镜像">6.中间层镜像</h3>
+<p>为了加速镜像构建、重复利用资源，Docker 会利用 中间层镜像。所以在使用一段时间后，可能会看到一些依赖的中间层镜像。默认的 docker image ls 列表中只会显示顶层镜像，如果希望显示包括中间层镜像在内的所有镜像的话，需要加 -a 参数。<br />
+<code>$ docker image ls -a</code></p>
+<h3 id="7列出部分镜像">7.列出部分镜像</h3>
+<div><pre class="hljs"><code><span class="hljs-variable">$</span> docker image <span class="hljs-built_in">ls</span> ubuntu
+<span class="hljs-variable">$</span> docker image <span class="hljs-built_in">ls</span> ubuntu:<span class="hljs-number">18.04</span>
+<span class="hljs-variable">$</span> docker image <span class="hljs-built_in">ls</span> <span class="hljs-operator">-f</span> since=mongo:<span class="hljs-number">3.2</span></code></pre></div>
+<p>想查看某个位置之前的镜像也可以，只需要把 since 换成 before 即可。<br />
+此外，如果镜像构建时，定义了 LABEL，还可以通过 LABEL 来过滤。<br />
+<code>$ docker image ls -f label=com.example.version=0.1</code></p>
+<p>利用 docker image ls 把所有的虚悬镜像的 ID 列出来<br />
+<code>$docker image ls -q</code></p>
+<p>下面的命令会直接列出镜像结果，并且只包含镜像ID和仓库名：</p>
+<div><pre class="hljs"><code><span class="hljs-string">$</span> <span class="hljs-string">docker</span> <span class="hljs-string">image</span> <span class="hljs-string">ls</span> <span class="hljs-string">--format</span> <span class="hljs-string">"<span class="hljs-template-variable">{{.ID}}</span>: <span class="hljs-template-variable">{{.Repository}}</span>"</span>
+<span class="hljs-attr">5f515359c7f8:</span> <span class="hljs-string">redis</span>
+<span class="hljs-attr">05a60462f8ba:</span> <span class="hljs-string">nginx</span>
+<span class="hljs-attr">fe9198c04d62:</span> <span class="hljs-string">mongo</span>
+<span class="hljs-attr">00285df0df87:</span> <span class="hljs-string">&lt;none&gt;</span>
+<span class="hljs-attr">329ed837d508:</span> <span class="hljs-string">ubuntu</span>
+<span class="hljs-attr">329ed837d508:</span> <span class="hljs-string">ubuntu</span></code></pre></div>
+<p>或者打算以表格等距显示，并且有标题行，和默认一样，不过自己定义列：</p>
+<div><pre class="hljs"><code><span class="language-xml">$ docker image ls --format "table </span><span class="hljs-template-variable">{{<span class="hljs-name">.ID</span>}}</span><span class="language-xml">\t</span><span class="hljs-template-variable">{{<span class="hljs-name">.Repository</span>}}</span><span class="language-xml">\t</span><span class="hljs-template-variable">{{<span class="hljs-name">.Tag</span>}}</span><span class="language-xml">"
+IMAGE ID            REPOSITORY          TAG
+5f515359c7f8        redis               latest
+05a60462f8ba        nginx               latest
+fe9198c04d62        mongo               3.2
+00285df0df87        <span class="hljs-tag">&lt;<span class="hljs-name">none</span>&gt;</span>              <span class="hljs-tag">&lt;<span class="hljs-name">none</span>&gt;</span>
+329ed837d508        ubuntu              18.04
+329ed837d508        ubuntu              bionic</span></code></pre></div>
+<h3 id="8删除本地镜像">8.删除本地镜像</h3>
+<p>如果要删除本地的镜像，可以使用 docker image rm 命令，其格式为：<br />
+<code>$ docker image rm [选项] &lt;镜像1&gt; [&lt;镜像2&gt; ...]</code></p>
+<p><strong>用 docker image ls 命令来配合</strong><br />
+像其它可以承接多个实体的命令一样，可以使用 docker image ls -q 来配合使用 docker image rm，这样可以成批的删除希望删除的镜像。我们在“镜像列表”章节介绍过很多过滤镜像列表的方式都可以拿过来使用。<br />
+比如，我们需要删除所有仓库名为 redis 的镜像：<br />
+<code>$ docker image rm $(docker image ls -q redis)</code><br />
+或者删除所有在 mongo:3.2 之前的镜像：<br />
+<code>$ docker image rm $(docker image ls -q -f before=mongo:3.2)</code></p>
+<h3 id="9利用-commit-理解镜像构成">9.利用 commit 理解镜像构成</h3>
+<p>要知道，当我们运行一个容器的时候（如果不使用卷的话），我们做的任何文件修改都会被记录于容器存储层里。而 Docker 提供了一个 docker commit 命令，可以将容器的存储层保存下来成为镜像。换句话说，就是在原有镜像的基础上，再叠加上容器的存储层，并构成新的镜像。以后我们运行这个新镜像的时候，就会拥有原有容器最后的文件变化。<br />
+docker commit 的语法格式为：<br />
+docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]]<br />
+我们可以用下面的命令将容器保存为镜像：</p>
+<div><pre class="hljs"><code>    --author <span class="hljs-string">"Tao Wang &lt;twang2218@gmail.com&gt;"</span> <span class="hljs-string">\</span>
+    --message <span class="hljs-string">"修改了默认网页"</span> <span class="hljs-string">\</span>
+    webserver <span class="hljs-string">\</span>
+    nginx:v2
+sha256:<span class="hljs-number">07e</span>33465974800ce65751acc279adc6ed2dc5ed4e0838f8b86f0c87aa1795214</code></pre></div>
+<p>其中 --author 是指定修改的作者，而 --message 则是记录本次修改的内容。这点和 git 版本控制相似，不过这里这些信息可以省略留空。</p>
+<h3 id="10exec-命令进入镜像">10.exec 命令进入镜像</h3>
+<p>-i -t 参数<br />
+docker exec 后边可以跟多个参数，这里主要说明 -i -t 参数。<br />
+只用 -i 参数时，由于没有分配伪终端，界面没有我们熟悉的 Linux 命令提示符，但命令执行结果仍然可以返回。<br />
+当 -i -t 参数一起使用时，则可以看到我们熟悉的 Linux 命令提示符。<br />
+<code>$ docker run -dit ubuntu</code></p>
+<h3 id="11导出容器">11.导出容器</h3>
+<p>如果要导出本地某个容器，可以使用 <code>docker export</code> 命令。<br />
+<code>$ docker container ls  -a</code><br />
+<code>$ docker  export 7691a814370e &gt; ubuntu.tar</code><br />
+这样将导出容器快照到本地文件。</p>
+<h3 id="12导入容器快照">12.导入容器快照</h3>
+<p>可以使用 <code>docker import</code> 从容器快照文件中再导入为镜像，例如<br />
+<code>$ cat ubuntu.tar |  docker  import - test/ubuntu:v1</code><br />
+此外，也可以通过指定 URL 或者某个目录来导入，例如<br />
+<code>$ docker  import http://example.com/exampleimage.tgz example/imagerepo</code><br />
+<em>注：用户既可以使用</em> <code>docker load</code> <em>来导入镜像存储文件到本地镜像库，也可以使用</em> <code>docker import</code> <em>来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</em></p>
+<h3 id="13删除容器">13.删除容器</h3>
+<p>可以使用 docker container rm 来删除一个处于终止状态的容器。例如<br />
+<code>$ docker container rm trusting_newton</code><br />
+如果要删除一个运行中的容器，可以添加 -f 参数。Docker 会发送 SIGKILL 信号给容器。</p>
+<h3 id="14清理所有处于终止状态的容器">14.清理所有处于终止状态的容器</h3>
+<p>用 docker container ls -a 命令可以查看所有已经创建的包括终止状态的容器，如果数量太多要一个个删除可能会很麻烦，用下面的命令可以清理掉所有处于终止状态的容器。<br />
+<code>$ docker container prune</code></p>
+
+                </div>
+				<div style="padding:15px;">
+				   <a href="javascript:;">
+						
+							标签: 
+									<span >docker</span>
+									
+						</a>
+				</div>
+                <div class="label"> 转载请注明出处！--- IT民工 </div>
+               
+            </div>           
+        </div>
+	<!----侧边栏 --->
+	        <div class="right" id="list-right">
+            <!-- 关于我 -->
+            <div class="thisMe">
+                <div class="touPick">
+				<img src="/_assets/images/aboutme.jpg" alt="图片走丢了" title="IT民工"></div>
+				<ul>
+                    <li><b style="font-size:20px;">IT民工</b></li>
+                </ul>
+				<br>
+                <ul>
+                    <li><a href="/index.html" style="text-decoration:none;" title="主页" class="iconfont">&#xe619;</a></li>
+                    <li><a target="_blank" href="mailto:dliangliang@cock.li" title="联系我" style="text-decoration:none;" class="iconfont">&#xe667;</a></li>
+                    <li><a href="/about.html" style="text-decoration:none;" title="关于我" class="iconfont">&#xe645;</a></li>
+                </ul>
+            </div>
+            <!-- 建站史 -->
+            <div class="ku">
+                <div class="title">建站史</div>
+                <div class="shus">
+                    <div class="line"></div>
+                    <div class="shus-cont">
+                        <a>Joplin</a><br>
+                        <a>MarkDown</a><br>
+                        <a>Pages Publisher</a><br>
+                        <a>GitHub Pages</a><br>
+                        <a>Cloudflare Pages</a><br>
+                        <a>Vercel Project</a><br>
+                        <a href="javascript:;" class="href-all">查看全部</a>
+                    </div>
+                </div>
+            </div>
+   
+            <!-- 标签云 -->
+            <div class="labels" id="labels">
+                <div class="title">标签云</div>
+                <a>打工狗</a>
+                <a>代码奴</a>
+                <a>金融嗜好</a>
+                <a>X瘾患者</a>
+                <a>偶尔撸B</a>
+                <a>精分患者</a>
+                <a>软肋不少</a>
+                <a>喜历史</a>
+            </div>
+            <!-- 友情链接 -->
+            <div class="ku">
+                <div class="title">左邻右舍</div>
+                <div class="neighbor">
+                    <a target="_blank" href="https://www.zhihu.com/people/economicsshare" title="知乎：巴甫洛夫的实验">知乎：巴甫洛夫的实验</a>
+                    <a target="_blank" href="https://space.bilibili.com/18059632" title="B站：巴甫洛夫的实验">B站：巴甫洛夫的实验</a>
+                    <a target="_blank" href="https://author.baidu.com/home?from=bjh_article&app_id=1790832269223398" title="百家号：巴甫洛夫的实验">百家号：巴甫洛夫的实验</a>                  
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- 底部 -->
+<div class="footer">
+    Design by <a href="#">IT民工</a>
+    <br>&copy; <script> document.write(new Date().getFullYear()); </script> <a href="#">IT民工</a>
+</div>
+
+<!-- 侧边栏 -->
+
+<div class="ce">
+    <a class="ceL" href="#" title="返回顶部"><i class="iconfont top">&#xe65b;</i></a>
+</div>
+
+
+</body>
+</html>
