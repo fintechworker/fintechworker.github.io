@@ -57,33 +57,44 @@
 <!-- 内容 -->
 <div class="content container" >
     <!-- 一级 -->
-	    <ul class="list row bj-white" id="list-1">
+					
+    <ul class="list row bj-white" id="list-1">
         <li class="title">
             <i class="iconfont c-hong">&#xe940;</i>热门推介<label>欢迎访问IT民工的网站！</label>
         </li>
         <div>
             <li class="cont-req">
                 <a class="t1_pick"><img src="/_assets/images/header-img-1.jpg"/></a>
-				<h3><a href="javascript:;">美丽的向日葵</a></h3>
+				
+					<h3><a href="/article/004.docker0.html" >如何修改docker0网桥地址</a></h3>
 
+				
             </li>
             <li class="cont-req">
                 <a class="t1_pick"><img src="/_assets/images/header-img-2.jpg"/></a>
-				<h3><a href="javascript:;">枫叶山</a></h3>
-
+				
+					<h3><a href="/article/002.docker.html" >docker配置日志</a></h3>
+				
             </li>
             <li class="cont-req">
                 <a class="t1_pick"><img src="/_assets/images/header-img-3.jpg"/></a>
-				<h3><a href="javascript:;">大峡谷</a></h3>
-
+				
+					<h3><a href="/article/001.docker.html" >普通用户运行Docker</a></h3>
+				
             </li>
             <li class="cont-req">
                 <a class="t1_pick"><img src="/_assets/images/header-img-4.jpg"/></a>
+					
 				<h3><a href="javascript:;">吊桥</a></h3>
+				
+				
             </li>
             <li class="cont-req">
                 <a class="t1_pick"><img src="/_assets/images/header-img-5.jpg"/></a>
+					
 				<h3><a href="javascript:;">花朵</a></h3>
+				
+				
             </li>
         </div>
     </ul>
@@ -97,10 +108,10 @@
 				
 				
 				<li class="cont-req2">
-					<a href="/article/004.docker0.html" class="t2_pick"><img src="/_assets/images/titile-img-1.jpg" alt=""></a>
+					<a href="/article/004.docker0.html" class="t2_pick"><img src="/_assets/images/titile-img-6.jpg" alt=""></a>
 						<div class="lvti">
 							<h2><a href="/article/004.docker0.html">如何修改docker0网桥地址</a></h2>
-							<div class="content">第一步删除原有配置：sudoservicedockerstopsudoiplinksetdevdocker0downsudobrctldelbrdocker0sudoiptables-tnat-FPOSTROUTING第二步创建新的网桥：sudobrctladdbrdocker0sudoipaddr...</div>
+							<div class="content">第一步 删除原有配置：sudo service docker stopsudo ip link set dev docker0 downsudo brctl delbr docker0sudo iptables -t nat -F POSTROUTING第二步 创建新的网桥：sudo brctl a...</div>
 							<ul class="entry-meta">
 								<li>
 									<i class="iconfont">&#xe601;</i>
@@ -130,7 +141,7 @@
 					<a href="/article/002.docker.html" class="t2_pick"><img src="/_assets/images/titile-img-10.jpg" alt=""></a>
 						<div class="lvti">
 							<h2><a href="/article/002.docker.html">docker配置日志</a></h2>
-							<div class="content">/etc/docker/daemon.json{&quot;log-driver&quot;:&quot;json-file&quot;,&quot;log-opts&quot;:{&quot;max-size&quot;:&quot;10m&quot;,&quot;max-file&quot;:&...</div>
+							<div class="content">/etc/docker/daemon.json {  &quot;log-driver&quot;: &quot;json-file&quot;,  &quot;log-opts&quot;: {    &quot;max-size&quot;: &quot;10m&quot;,    &quot;...</div>
 							<ul class="entry-meta">
 								<li>
 									<i class="iconfont">&#xe601;</i>
@@ -157,10 +168,10 @@
 				</li>
 				
 				<li class="cont-req2">
-					<a href="/article/001.docker.html" class="t2_pick"><img src="/_assets/images/titile-img-4.jpg" alt=""></a>
+					<a href="/article/001.docker.html" class="t2_pick"><img src="/_assets/images/titile-img-11.jpg" alt=""></a>
 						<div class="lvti">
 							<h2><a href="/article/001.docker.html">普通用户运行Docker</a></h2>
-							<div class="content">1.创建docker组$sudogroupadddocker2.添加当前用户到docker组$sudousermod-aGdocker$USER3.重新登录验证普通用户运行docker$dockerrunhello-world如果在进行如上配置之前，已经使用sudo运行了docker，可能会遇到如下...</div>
+							<div class="content">1.创建docker组$sudo groupadd docker2. 添加当前用户到docker组$sudo usermod -aG docker $USER3.重新登录验证普通用户运行docker$ docker run hello-world如果在进行如上配置之前，已经使用sudo 运行了doc...</div>
 							<ul class="entry-meta">
 								<li>
 									<i class="iconfont">&#xe601;</i>
