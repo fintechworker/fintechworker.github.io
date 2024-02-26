@@ -4,7 +4,7 @@
         <title></title>
         <link>undefined</link>
         <description>undefined</description>
-        <lastBuildDate>Mon, 26 Feb 2024 03:10:36 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 26 Feb 2024 03:14:11 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Joplin Pages Publisher</generator>
         <item>
@@ -687,6 +687,58 @@ sudo<span class="hljs-built_in"> ip </span>link <span class="hljs-built_in">set<
 ]]></content:encoded>
         </item>
         <item>
+            <title><![CDATA[Linux进程内存使用查询方法]]></title>
+            <guid>6436f738f30c41649cbaf2ababad4e5f</guid>
+            <pubDate>Wed, 17 Jan 2024 02:53:42 GMT</pubDate>
+            <content:encoded><![CDATA[<p>linux查看进程占用内存情况<br />
+在Linux系统中，我们经常需要查看进程占用内存的情况，以便及时发现和解决内存相关的问题。下面将介绍几种常用的方法来查看进程占用内存的情况。</p>
+<ol>
+<li>使用top命令</li>
+</ol>
+<p>top命令是一个非常强大的系统监视工具，可以实时查看系统的资源使用情况。通过top命令，我们可以查看进程的CPU占用率、内存占用率等信息。</p>
+<p>要使用top命令查看进程占用内存情况，可以按下Shift+M键，按照内存占用率进行排序。这样就可以看到占用内存最多的进程。</p>
+<ol start="2">
+<li>使用ps命令</li>
+</ol>
+<p>ps命令可以用来查看系统中的进程信息。要查看进程的内存占用情况，可以使用ps命令的aux选项，然后按照内存占用量进行排序。</p>
+<p>命令示例：ps aux --sort -rss</p>
+<p>其中，-rss表示按照进程占用的物理内存大小进行排序。这样就可以看到占用内存最多的进程。</p>
+<ol start="3">
+<li>使用pmap命令</li>
+</ol>
+<p>pmap命令可以显示进程的内存映射情况，包括内存地址、权限、映射文件等信息。通过查看进程的内存映射情况，可以了解进程占用内存的详细情况。</p>
+<p>命令示例：pmap -x &lt;进程ID&gt;</p>
+<p>其中，&lt;进程ID&gt;是要查看的进程的ID。执行该命令后，会显示该进程占用的内存映射情况。</p>
+<ol start="4">
+<li>使用smem命令</li>
+</ol>
+<p>smem命令可以提供更详细的进程内存使用信息，包括物理内存、共享内存、内核内存等。通过smem命令，可以更全面地了解进程的内存占用情况。</p>
+<p>命令示例：smem -r</p>
+<p>执行该命令后，会显示系统中所有进程的内存使用情况，按照内存占用量进行排序。</p>
+<p>通过以上几种方法，我们可以方便地查看Linux系统中进程的内存占用情况。根据实际需求，选择合适的方法来监视和优化系统的内存使用，以提高系统的性能和稳定性。</p>
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Centos查找软件包]]></title>
+            <guid>256f0f4569d8420a9121bbecee00c9c0</guid>
+            <pubDate>Mon, 15 Jan 2024 09:55:08 GMT</pubDate>
+            <content:encoded><![CDATA[一、rpm -qR  httpd<br />
+查询httpd依赖的软件包<br />
+二、查找某个命令属于哪个rpm包<br />
+1.1、使用rpm命令<br />
+首先需要找到某个命令的位置，比如说这里的sar命令是在/usr/bin/sar这个位置然后用rpm这个命令查找sar命令属于sysstat包。<br />
+#which sar<br />
+输出/usr/bin/sar<br />
+#rpm -qf /usr/bin/sar<br />
+查询命令依赖包<br />
+2.使用yum<br />
+#yum  provides sar<br />
+三、查看某个包的相关信息<br />
+rpm -qi XXXX.el.x86_64<br />
+四、查看某个包的所有的安装文件<br />
+rpm -ql sysstat-12.5.4-3.el9.x86_64]]></content:encoded>
+        </item>
+        <item>
             <title><![CDATA[docker自定义数据目录]]></title>
             <guid>28f5b3ebb82342c29733ecd536fe3344</guid>
             <pubDate>Mon, 15 Jan 2024 08:29:26 GMT</pubDate>
@@ -713,29 +765,6 @@ sudo<span class="hljs-built_in"> ip </span>link <span class="hljs-built_in">set<
 "max-file": "3"<br />
 }<br />
 }]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[普通用户运行Docker]]></title>
-            <guid>349573aa38bc4745bbd197b4a1bd2f1d</guid>
-            <pubDate>Mon, 15 Jan 2024 08:12:21 GMT</pubDate>
-            <content:encoded><![CDATA[<h2 id="1创建docker组">1.创建docker组</h2>
-<p><code>$sudo groupadd docker</code></p>
-<h2 id="2-添加当前用户到docker组">2. 添加当前用户到docker组</h2>
-<p><code>$sudo usermod -aG docker $USER</code></p>
-<h2 id="3重新登录验证普通用户运行docker">3.重新登录验证普通用户运行docker</h2>
-<p><code>$ docker run hello-world</code></p>
-<p>##########################</p>
-<p>如果在进行如上配置之前，已经使用sudo 运行了docker，可能会遇到如下错误:</p>
-<div><pre class="hljs"><code>content_copy
-WARNING: Error loading config <span class="hljs-keyword">file</span>: <span class="hljs-regexp">/home/u</span>ser<span class="hljs-regexp">/.docker/</span>config.json -
-stat <span class="hljs-regexp">/home/u</span>ser<span class="hljs-regexp">/.docker/</span>config.json: permission denied
-<span class="hljs-keyword">This</span> error indicates that the permission settings <span class="hljs-keyword">for</span> the ~<span class="hljs-regexp">/.docker/</span> directory are incorrect, due to having used the sudo command earlier.</code></pre></div>
-<p>解决方法:<br />
-1.删除 ~/.docker/ directory (会自动创建、但是个性化配置会丢失),<br />
-2.或使用如下命令修改所有者和用户组:</p>
-<div><pre class="hljs"><code>sudo <span class="hljs-keyword">chown</span> <span class="hljs-string">"$USER"</span>:<span class="hljs-string">"$USER"</span> /home/<span class="hljs-string">"$USER"</span>/.docker -R
-sudo <span class="hljs-keyword">chmod</span> g+rwx <span class="hljs-string">"$HOME/.docker"</span> -R</code></pre></div>
-]]></content:encoded>
         </item>
     </channel>
 </rss>

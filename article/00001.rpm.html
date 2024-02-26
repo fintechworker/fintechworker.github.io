@@ -20,9 +20,8 @@
     <!-- style -->
     <link rel="stylesheet" href="/_assets/style.css">
     <link rel="stylesheet" href="/_assets/css/media.css">
-	<meta name="keywords" content="归档">
-
-    <title>归档-IT民工</title>
+	<meta name="keywords" content="Centos查找软件包">
+    <title>Centos查找软件包-IT民工</title>
 </head>
 <body>
 <!-- 头部 -->
@@ -57,7 +56,7 @@
 <t></t>
 
 <!-- 内容 -->
-<div class="content container" >
+<div class="content container" data-content>
     <!-- 一级 -->
 					
     <ul class="list row bj-white" id="list-1">
@@ -101,144 +100,45 @@
         </div>
     </ul>
     <!-- 二级 -->
-    <div class="love2" id="list-2">
-        <div class="left" id="list-left">
-            <ul class="list row list-hen">
-				
-						 <li class="title title-lv">
-							<span class="badge badge-secondary">2024年</span>文章列表
-						 </li>
-						 <li class="cont-req2">
-							 <div class="lvti">
+    <div class="love2" >
 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
-
-												<a href="/article/009.dockerfile.html">Dockerfile指令详解</a>
-
-											</li>
-											<li>2024-02-05 16:47
-										</ul>
-															 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
-
-												<a href="/article/008.dockerfile.html">Dockerfile 哪些命令会构建新的镜像层</a>
-
-											</li>
-											<li>2024-02-05 16:44
-										</ul>
-															 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
-
-												<a href="/article/007.-dockerfile.html">使用 Dockerfile 定制镜像</a>
-
-											</li>
-											<li>2024-02-05 16:12
-										</ul>
-															 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
-
-												<a href="/article/006.docker.html">Docker命令</a>
-
-											</li>
-											<li>2024-02-05 14:10
-										</ul>
-															 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
-
-												<a href="/article/005.centos-docker.html">Centos安装docker</a>
-
-											</li>
-											<li>2024-02-04 17:25
-										</ul>
-															 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
-
-												<a href="/article/004.docker0.html">如何修改docker0网桥地址</a>
-
-											</li>
-											<li>2024-01-23 17:06
-										</ul>
-															 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
-
-												<a href="/article/00003.pssearch.html">Linux进程内存使用查询方法</a>
-
-											</li>
-											<li>2024-01-17 10:53
-										</ul>
-															 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
-
-												<a href="/article/00001.rpm.html">Centos查找软件包</a>
-
-											</li>
-											<li>2024-01-15 17:55
-										</ul>
-															 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
-
-												<a href="/article/003.docker.html">docker自定义数据目录</a>
-
-											</li>
-											<li>2024-01-15 16:29
-										</ul>
-															 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
-
-												<a href="/article/002.docker.html">docker配置日志</a>
-
-											</li>
-											<li>2024-01-15 16:28
-										</ul>
-															 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
-
-												<a href="/article/001.docker.html">普通用户运行Docker</a>
-
-											</li>
-											<li>2024-01-15 16:12
-										</ul>
-															 
-									 
-							 </div>
-						 </li>
-									               				
-			</ul>
-		</div>
-		<!-- 右侧-->
+        <div class="left">
+            <!-- 文章主体 -->
+            <div class="contents">
+                <div class="title">Centos查找软件包</div>
+                <div class="title_t">时间：2024-01-15 17:55丨编辑：<a href="/index.html">IT民工</a></div>
+                <div class="ner">
+                  一、rpm -qR  httpd<br />
+查询httpd依赖的软件包<br />
+二、查找某个命令属于哪个rpm包<br />
+1.1、使用rpm命令<br />
+首先需要找到某个命令的位置，比如说这里的sar命令是在/usr/bin/sar这个位置然后用rpm这个命令查找sar命令属于sysstat包。<br />
+#which sar<br />
+输出/usr/bin/sar<br />
+#rpm -qf /usr/bin/sar<br />
+查询命令依赖包<br />
+2.使用yum<br />
+#yum  provides sar<br />
+三、查看某个包的相关信息<br />
+rpm -qi XXXX.el.x86_64<br />
+四、查看某个包的所有的安装文件<br />
+rpm -ql sysstat-12.5.4-3.el9.x86_64
+                </div>
+				<div style="padding:15px;">
+				   <a href="javascript:;">
+						
+							标签: 
+									<span >rpm</span>
+									
+									<span >yum</span>
+									
+						</a>
+				</div>
+                <div class="label"> 转载请注明出处！--- IT民工 </div>
+               
+            </div>           
+        </div>
+	<!----侧边栏 --->
 	        <div class="right" id="list-right">
             <!-- 关于我 -->
             <div class="thisMe">

@@ -20,9 +20,8 @@
     <!-- style -->
     <link rel="stylesheet" href="/_assets/style.css">
     <link rel="stylesheet" href="/_assets/css/media.css">
-	<meta name="keywords" content="归档">
-
-    <title>归档-IT民工</title>
+	<meta name="keywords" content="Linux进程内存使用查询方法">
+    <title>Linux进程内存使用查询方法-IT民工</title>
 </head>
 <body>
 <!-- 头部 -->
@@ -57,7 +56,7 @@
 <t></t>
 
 <!-- 内容 -->
-<div class="content container" >
+<div class="content container" data-content>
     <!-- 一级 -->
 					
     <ul class="list row bj-white" id="list-1">
@@ -101,144 +100,55 @@
         </div>
     </ul>
     <!-- 二级 -->
-    <div class="love2" id="list-2">
-        <div class="left" id="list-left">
-            <ul class="list row list-hen">
-				
-						 <li class="title title-lv">
-							<span class="badge badge-secondary">2024年</span>文章列表
-						 </li>
-						 <li class="cont-req2">
-							 <div class="lvti">
+    <div class="love2" >
 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
+        <div class="left">
+            <!-- 文章主体 -->
+            <div class="contents">
+                <div class="title">Linux进程内存使用查询方法</div>
+                <div class="title_t">时间：2024-01-17 10:53丨编辑：<a href="/index.html">IT民工</a></div>
+                <div class="ner">
+                  <p>linux查看进程占用内存情况<br />
+在Linux系统中，我们经常需要查看进程占用内存的情况，以便及时发现和解决内存相关的问题。下面将介绍几种常用的方法来查看进程占用内存的情况。</p>
+<ol>
+<li>使用top命令</li>
+</ol>
+<p>top命令是一个非常强大的系统监视工具，可以实时查看系统的资源使用情况。通过top命令，我们可以查看进程的CPU占用率、内存占用率等信息。</p>
+<p>要使用top命令查看进程占用内存情况，可以按下Shift+M键，按照内存占用率进行排序。这样就可以看到占用内存最多的进程。</p>
+<ol start="2">
+<li>使用ps命令</li>
+</ol>
+<p>ps命令可以用来查看系统中的进程信息。要查看进程的内存占用情况，可以使用ps命令的aux选项，然后按照内存占用量进行排序。</p>
+<p>命令示例：ps aux --sort -rss</p>
+<p>其中，-rss表示按照进程占用的物理内存大小进行排序。这样就可以看到占用内存最多的进程。</p>
+<ol start="3">
+<li>使用pmap命令</li>
+</ol>
+<p>pmap命令可以显示进程的内存映射情况，包括内存地址、权限、映射文件等信息。通过查看进程的内存映射情况，可以了解进程占用内存的详细情况。</p>
+<p>命令示例：pmap -x &lt;进程ID&gt;</p>
+<p>其中，&lt;进程ID&gt;是要查看的进程的ID。执行该命令后，会显示该进程占用的内存映射情况。</p>
+<ol start="4">
+<li>使用smem命令</li>
+</ol>
+<p>smem命令可以提供更详细的进程内存使用信息，包括物理内存、共享内存、内核内存等。通过smem命令，可以更全面地了解进程的内存占用情况。</p>
+<p>命令示例：smem -r</p>
+<p>执行该命令后，会显示系统中所有进程的内存使用情况，按照内存占用量进行排序。</p>
+<p>通过以上几种方法，我们可以方便地查看Linux系统中进程的内存占用情况。根据实际需求，选择合适的方法来监视和优化系统的内存使用，以提高系统的性能和稳定性。</p>
 
-												<a href="/article/009.dockerfile.html">Dockerfile指令详解</a>
-
-											</li>
-											<li>2024-02-05 16:47
-										</ul>
-															 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
-
-												<a href="/article/008.dockerfile.html">Dockerfile 哪些命令会构建新的镜像层</a>
-
-											</li>
-											<li>2024-02-05 16:44
-										</ul>
-															 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
-
-												<a href="/article/007.-dockerfile.html">使用 Dockerfile 定制镜像</a>
-
-											</li>
-											<li>2024-02-05 16:12
-										</ul>
-															 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
-
-												<a href="/article/006.docker.html">Docker命令</a>
-
-											</li>
-											<li>2024-02-05 14:10
-										</ul>
-															 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
-
-												<a href="/article/005.centos-docker.html">Centos安装docker</a>
-
-											</li>
-											<li>2024-02-04 17:25
-										</ul>
-															 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
-
-												<a href="/article/004.docker0.html">如何修改docker0网桥地址</a>
-
-											</li>
-											<li>2024-01-23 17:06
-										</ul>
-															 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
-
-												<a href="/article/00003.pssearch.html">Linux进程内存使用查询方法</a>
-
-											</li>
-											<li>2024-01-17 10:53
-										</ul>
-															 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
-
-												<a href="/article/00001.rpm.html">Centos查找软件包</a>
-
-											</li>
-											<li>2024-01-15 17:55
-										</ul>
-															 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
-
-												<a href="/article/003.docker.html">docker自定义数据目录</a>
-
-											</li>
-											<li>2024-01-15 16:29
-										</ul>
-															 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
-
-												<a href="/article/002.docker.html">docker配置日志</a>
-
-											</li>
-											<li>2024-01-15 16:28
-										</ul>
-															 
-									 
-										<ul class="entry-meta">
-											<li >
-												<i class="iconfont">&#xe601;</i>
-
-												<a href="/article/001.docker.html">普通用户运行Docker</a>
-
-											</li>
-											<li>2024-01-15 16:12
-										</ul>
-															 
-									 
-							 </div>
-						 </li>
-									               				
-			</ul>
-		</div>
-		<!-- 右侧-->
+                </div>
+				<div style="padding:15px;">
+				   <a href="javascript:;">
+						
+							标签: 
+									<span >ps</span>
+									
+						</a>
+				</div>
+                <div class="label"> 转载请注明出处！--- IT民工 </div>
+               
+            </div>           
+        </div>
+	<!----侧边栏 --->
 	        <div class="right" id="list-right">
             <!-- 关于我 -->
             <div class="thisMe">
