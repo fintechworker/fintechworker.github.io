@@ -20,8 +20,8 @@
     <!-- style -->
     <link rel="stylesheet" href="/_assets/style.css">
     <link rel="stylesheet" href="/_assets/css/media.css">
-	<meta name="keywords" content="普通用户运行Docker">
-    <title>普通用户运行Docker-IT民工</title>
+	<meta name="keywords" content="Linux 系统精粹：深入解析 PROMPT_COMMAND 环境变量及其实用技巧-CSDN博客">
+    <title>Linux 系统精粹：深入解析 PROMPT_COMMAND 环境变量及其实用技巧-CSDN博客-IT民工</title>
 <link rel="stylesheet" href="/_markdown_plugin_assets/highlight.js/atom-one-light.css" /></head>
 <body>
 <!-- 头部 -->
@@ -105,33 +105,45 @@
         <div class="left">
             <!-- 文章主体 -->
             <div class="contents">
-                <div class="title">普通用户运行Docker</div>
-                <div class="title_t">时间：2024-01-15 16:12丨编辑：<a href="/index.html">IT民工</a></div>
+                <div class="title">Linux 系统精粹：深入解析 PROMPT_COMMAND 环境变量及其实用技巧-CSDN博客</div>
+                <div class="title_t">时间：2024-03-11 14:36丨编辑：<a href="/index.html">IT民工</a></div>
                 <div class="ner">
-                  <h2 id="1创建docker组">1.创建docker组</h2>
-<p><code>$sudo groupadd docker</code></p>
-<h2 id="2-添加当前用户到docker组">2. 添加当前用户到docker组</h2>
-<p><code>$sudo usermod -aG docker $USER</code></p>
-<h2 id="3重新登录验证普通用户运行docker">3.重新登录验证普通用户运行docker</h2>
-<p><code>$ docker run hello-world</code></p>
-<p>##########################</p>
-<p>如果在进行如上配置之前，已经使用sudo 运行了docker，可能会遇到如下错误:</p>
-<div><pre class="hljs"><code>content_copy
-WARNING: Error loading config <span class="hljs-keyword">file</span>: <span class="hljs-regexp">/home/u</span>ser<span class="hljs-regexp">/.docker/</span>config.json -
-stat <span class="hljs-regexp">/home/u</span>ser<span class="hljs-regexp">/.docker/</span>config.json: permission denied
-<span class="hljs-keyword">This</span> error indicates that the permission settings <span class="hljs-keyword">for</span> the ~<span class="hljs-regexp">/.docker/</span> directory are incorrect, due to having used the sudo command earlier.</code></pre></div>
-<p>解决方法:<br />
-1.删除 ~/.docker/ directory (会自动创建、但是个性化配置会丢失),<br />
-2.或使用如下命令修改所有者和用户组:</p>
-<div><pre class="hljs"><code>sudo <span class="hljs-keyword">chown</span> <span class="hljs-string">"$USER"</span>:<span class="hljs-string">"$USER"</span> /home/<span class="hljs-string">"$USER"</span>/.docker -R
-sudo <span class="hljs-keyword">chmod</span> g+rwx <span class="hljs-string">"$HOME/.docker"</span> -R</code></pre></div>
+                  <p>PROMPT_COMMAND 是 Linux 系统中一个非常有用的环境变量，它允许用户指定一个命令或一系列命令在显示每个主提示符之前执行。这个功能在许多方面都很有用，比如自定义提示信息、运行检查或日志记录等。在本文中，我们将深入探讨 PROMPT_COMMAND 的概念、用法以及一些实用的示例，帮助您更高效地使用 Linux 系统。</p>
+<h4 id="1-prompt_command-简介">1. PROMPT_COMMAND 简介</h4>
+<p>PROMPT_COMMAND 是 Bash shell 的一个环境变量。当设置了这个变量时，Bash 会在每次主提示符出现之前执行其值指定的命令。这为用户提供了一个强大的机制，用于增强和定制他们的命令行体验。</p>
+<h4 id="2-prompt_command-的工作原理">2. PROMPT_COMMAND 的工作原理</h4>
+<p>在 Bash 中，每次命令执行完毕后，shell 都会检查 PROMPT_COMMAND 环境变量。如果这个变量被设置了，Bash 会执行它的值指定的命令，然后再显示主提示符。这意味着我们可以使用 PROMPT_COMMAND 执行各种任务，比如更新环境变量、显示自定义消息、记录历史命令等。</p>
+<h4 id="3-如何设置-prompt_command">3. 如何设置 PROMPT_COMMAND</h4>
+<p>设置 PROMPT_COMMAND 非常简单。可以在命令行中直接设置它，也可以在 <code>.bashrc</code> 文件中设置它以便每次登录时自动应用。以下是一些设置 PROMPT_COMMAND 的例子：</p>
+<div><pre class="hljs"><code>`# 直接在命令行中设置 <span class="hljs-keyword">export</span> PROMPT_COMMAND=<span class="hljs-string">'echo -n "当前时间: "; date'</span>  # 在 .bashrc 文件中设置 echo <span class="hljs-string">"export PROMPT_COMMAND='echo -n 当前路径: ; pwd'"</span> &gt;&gt; ~/.bashrc`
+</code></pre></div>
+<h4 id="4-实用的-prompt_command-示例">4. 实用的 PROMPT_COMMAND 示例</h4>
+<h5 id="示例-1-显示当前时间">示例 1: 显示当前时间</h5>
+<p>可以设置 PROMPT_COMMAND 以在每个提示符前显示当前时间。</p>
+<div><pre class="hljs"><code>`export PROMPT_COMMAND='echo -n <span class="hljs-string">"当前时间: $(date "</span>+<span class="hljs-built_in">%H</span>:<span class="hljs-built_in">%M</span>:<span class="hljs-built_in">%S</span><span class="hljs-string">")"</span>'`</code></pre></div>
+<h5 id="示例-2-自定义提示信息">示例 2: 自定义提示信息</h5>
+<p>使用 PROMPT_COMMAND 来自定义shell 提示信息，显示更多有用信息。</p>
+<div><pre class="hljs"><code>`export PROMPT_COMMAND='PS1=<span class="hljs-string">"在 $(pwd) [$(date "</span>+<span class="hljs-built_in">%H</span>:<span class="hljs-built_in">%M</span>:<span class="hljs-built_in">%S</span><span class="hljs-string">")]$ "</span>'`
+</code></pre></div>
+<h5 id="示例-3-命令执行时间">示例 3: 命令执行时间</h5>
+<p>记录并显示上一个命令执行花费的时间。</p>
+<div><pre class="hljs"><code>`<span class="hljs-built_in">export</span> <span class="hljs-attribute">PROMPT_COMMAND</span>=<span class="hljs-string">'echo -n "上个命令执行时间: $SECONDS 秒"'</span>`</code></pre></div>
+<img width="962" height="962" src="/_resources/fe67129083a04ab8895a07df86155cfe.png" class="jop-noMdConv" />
+<h4 id="5-注意事项和最佳实践">5. 注意事项和最佳实践</h4>
+<ul>
+<li><strong>避免复杂命令</strong>: 尽量不要在 PROMPT_COMMAND 中放置过于复杂或耗时的命令，这可能会影响命令行体验。</li>
+<li><strong>备份</strong>: 在修改 <code>.bashrc</code> 或其他配置文件之前，建议先备份。</li>
+<li><strong>测试</strong>: 在应用任何新的 PROMPT_COMMAND 设置之前，先在命令行中测试它们以确保它们按预期工作。</li>
+</ul>
+<h4 id="6-结论">6. 结论</h4>
+<p>PROMPT_COMMAND 是 Bash shell 的一个强大特性，允许用户在显示每个主提示符之前执行特定的命令。无论我们是想自定义自己的提示信息，还是想记录和监控shell 活动，PROMPT_COMMAND 都能提供所需的灵活性和功能。通过上述示例和指导，我们能开始利用这个功能，使自己的 Linux 体验更加高效和愉快。</p>
 
                 </div>
 				<div style="padding:15px;">
 				   <a href="javascript:;">
 						
 							标签: 
-									<span >docker</span>
+									<span >linux</span>
 									
 						</a>
 				</div>
