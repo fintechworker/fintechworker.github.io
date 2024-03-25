@@ -4,9 +4,64 @@
         <title></title>
         <link>undefined</link>
         <description>undefined</description>
-        <lastBuildDate>Mon, 18 Mar 2024 06:01:32 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 25 Mar 2024 09:43:33 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Joplin Pages Publisher</generator>
+        <item>
+            <title><![CDATA[011.docker --link容器互联]]></title>
+            <guid>1bb67b24f231401e821f1e5b415498bf</guid>
+            <pubDate>Mon, 25 Mar 2024 03:15:52 GMT</pubDate>
+            <content:encoded><![CDATA[<h4 id="docker-link容器互联">docker --link容器互联</h4>
+<h3 id="容器互联">容器互联</h3>
+<p><code>--link</code>可以通过容器名互相通信，容器间共享环境变量。<br />
+<code>--link</code>主要用来解决两个容器通过ip地址连接时<code>容器ip地址</code>会变的问题.</p>
+<h4 id="先创建启动mysql容器">先创建启动mysql容器</h4>
+<div><pre class="hljs"><code>`# -dti：指定容器运行在交互模式下，并将其连接到终端。 # --name db：为容器指定名称 db，以便在后续操作中引用该容器。 # <span class="hljs-attribute">--restart</span>=always：指定容器在退出时总是自动重启。 # -e <span class="hljs-attribute">MYSQL_ROOT_PASSWORD</span>=redhat：设置 MySQL 的 root 用户密码为 redhat。 # -e <span class="hljs-attribute">MYSQL_DATABASE</span>=blog：创建一个名为 blog 的数据库。  docker <span class="hljs-built_in">run</span> -dti --name db <span class="hljs-attribute">--restart</span>=always -e <span class="hljs-attribute">MYSQL_ROOT_PASSWORD</span>=redhat -e <span class="hljs-attribute">MYSQL_DATABASE</span>=blog  mysql:5.6`</code></pre></div>
+<h4 id="创建启动源容器wordpress">创建启动源容器wordpress</h4>
+<div><pre class="hljs"><code>`# docker run -dti --name 容器名 --restart=always -v 本地目录:容器内目录 -p 本地端口:容器端口 --link 数据库容器名:数据库容器别名 wordpress镜像  # -dti：指定容器运行在交互模式下，并将其连接到终端。 # --name blog：为容器指定名称 blog，以便在后续操作中引用该容器。 # --restart=always：指定容器在退出时总是自动重启。 # -v <span class="hljs-regexp">/web:/</span>var<span class="hljs-regexp">/www/</span>html：将宿主机上的 <span class="hljs-regexp">/web 目录映射到容器中的 /</span>var<span class="hljs-regexp">/www/</span>html 目录，实现数据持久化。 # -p <span class="hljs-number">80</span>:<span class="hljs-number">80</span>：将容器内部的 <span class="hljs-number">80</span> 端口映射到宿主机的 <span class="hljs-number">80</span> 端口，以便外部网络可以访问容器中的网站。 # --link db:mysql：将容器与另一个名为 db 的容器连接起来，并设置别名为 mysql，以便在后续操作中引用该容器。  docker run -dti --name blog --restart=always -v <span class="hljs-regexp">/web:/</span>var<span class="hljs-regexp">/www/</span>html -p <span class="hljs-number">80</span>:<span class="hljs-number">80</span> --link db:mysql wordpress`</code></pre></div>
+<p>当使用–link参数时，docker会自动在共享两个容器的变量。访问数据库的时候,不再是通过IP的方式来访问,而是通过容器名来访问.<br />
+在容器中执行： <code>env | grep -i hub_name</code>,会显示容器的的环境变量</p>
+<h3 id="实验tomcat连接mysql">实验:tomcat连接mysql</h3>
+<p>接下来在tomcat容器的webapps中配置msyql连接，数据源输入mysql的容器名即可。<br />
+–link 参数可以把两个容器连接为一组容器,一般用于连接mysql,而不用映射mysql的端口到宿主机</p>
+<p>例如,tomcat和mysql建立link之后,在tomcat里可以直接ping通mysql的容器名.<br />
+在tomcat配置MySQL连接的文件中不需要再写入localhost或者ip地址,直接写入mysql容器名即可连接到mysql数据库</p>
+<h4 id="创建启动mysql容器"><a id="t5" class="jop-noMdConv"></a><a id="mysql_52" class="jop-noMdConv"></a>创建启动mysql容器</h4>
+<div><pre class="hljs"><code>`# -dti：指定容器运行在交互模式下，并将其连接到终端。 # --name mysql：为容器指定名称mysql，以便在后续操作中引用该容器。 # <span class="hljs-attribute">--restart</span>=always：指定容器在退出时总是自动重启。 # -e <span class="hljs-attribute">MYSQL_ROOT_PASSWORD</span>=12345：设置 MySQL的密码 docker <span class="hljs-built_in">run</span> -dti --name mysql <span class="hljs-attribute">--restart</span>=always -e <span class="hljs-attribute">MYSQL_ROOT_PASSWORD</span>=123456 mysql:5.6`</code></pre></div>
+<h4 id="创建启动tomcat容器-link连接mysql容器">创建启动tomcat容器 --link连接mysql容器</h4>
+<div><pre class="hljs"><code>`# -dti：指定容器运行在交互模式下，并将其连接到终端。 # --name tomcat：为容器指定名称 tomcat # --restart=always：指定容器在退出时总是自动重启。 # -p <span class="hljs-number">8080</span>:<span class="hljs-number">8080</span>：将容器内部的 <span class="hljs-number">8080</span> 端口映射到宿主机的 <span class="hljs-number">8080</span> 端口 # --link mysql：将容器与另一个名为 mysql 的容器连接起来 # -v <span class="hljs-regexp">/webapps:/u</span>sr<span class="hljs-regexp">/local/</span>tomcat<span class="hljs-regexp">/webapps：将宿主机上的 /</span>webapps 目录映射到容器中的 <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/tomcat/</span>webapps 目录  docker run -dti --name tomcat --restart=always -p <span class="hljs-number">8080</span>:<span class="hljs-number">8080</span> --link mysql -v <span class="hljs-regexp">/webapps:/u</span>sr<span class="hljs-regexp">/local/</span>tomcat/webapps tomcat`</code></pre></div>
+<p>接下来在tomcat容器的webapps中配置msyql连接，数据源输入mysql的容器名即可。<br />
+tomcat和mysql建立link之后,在tomcat里可以直接ping通mysql的容器名.<br />
+在tomcat配置MySQL连接的文件中不需要再写入localhost或者ip地址,直接写入mysql容器名即可连接到mysql数据库.</p>
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[010.Docker save 和 export 命令的区别]]></title>
+            <guid>a5617dc9eeca43b2a090679d9b108dcb</guid>
+            <pubDate>Mon, 25 Mar 2024 01:37:37 GMT</pubDate>
+            <content:encoded><![CDATA[<blockquote>
+<p>Docker 中有两个命令可以将镜像导出为本地文件系统中的 tar 文件：<code>docker save</code> 和 <code>docker export</code>。尽管它们的作用类似，但它们之间有一个重要的区别。</p>
+</blockquote>
+<h3 id="1使用方式的不同"><a id="t0" class="jop-noMdConv"></a><a id="1_3" class="jop-noMdConv"></a>1.使用方式的不同：</h3>
+<p><code>docker save</code> 的使用示例：</p>
+<div><pre class="hljs"><code>`docker save -o test.tar image_name`
+</code></pre></div>
+<p><code>docker export</code> 的使用示例：</p>
+<div><pre class="hljs"><code>`docker <span class="hljs-keyword">export</span> container_name &gt; <span class="hljs-keyword">test</span>.tar`</code></pre></div>
+<h3 id="2导出内容的不同">2.导出内容的不同：</h3>
+<p><code>docker save</code> 命令会将整个镜像及其所有的层保存为一个 tar 文件，包括镜像的元数据和配置信息。可以将这个 tar 文件用于在其他主机上加载镜像，或将其推送到 Docker Registry 中。</p>
+<p><code>docker export</code> 命令指挥导出容器的文件系统，不包括镜像的元数据和配置信息。它可以将容器的文件系统保存为一个 tar 文件，可以用于备份或共享容器的文件系统，但不能用于创建新的镜像。</p>
+<h3 id="3导出文件的不同">3.导出文件的不同：</h3>
+<p>使用 <code>docker save</code> 命令导出的 tar 文件可以使用 <code>docker load</code> 命令导入到 Docker 中，以创建一个新的镜像。导出的 tar 文件包括完整的镜像层级结构和镜像元数据。</p>
+<p>使用 <code>docker export</code> 命令导出的 tar 文件可以使用 <code>docker import</code> 命令导入到 Docker 中，以创建一个新的镜像。但是，导入的镜像不包括原始镜像的任何元数据或配置信息。它只是简单地创建了一个包含容器文件系统的新镜像，该镜像可以用于创建新容器。</p>
+<h3 id="4总结">4.总结</h3>
+<p>综上所述，可以根据具体需要选择 <code>docker save</code> 或 <code>docker export</code> 命令：</p>
+<ul>
+<li>如果需要导出整个镜像及其元数据和配置信息，则应该使用 <code>docker save</code> 命令；</li>
+<li>如果只需要导出容器的文件系统，则可以使用 <code>docker export</code> 命令。</li>
+</ul>
+]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Linux 系统精粹：深入解析 PROMPT_COMMAND 环境变量及其实用技巧-CSDN博客]]></title>
             <guid>2fe71f94f3ba41aca5280795a24a1745</guid>
@@ -764,193 +819,6 @@ sudo<span class="hljs-built_in"> ip </span>link <span class="hljs-built_in">set<
 }</code></pre></div>
 <p>第四步 重启主机：</p>
 <div><pre class="hljs"><code><span class="hljs-attribute">sudo reboot</span></code></pre></div>
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[linux下lsof用法]]></title>
-            <guid>a708c849e49b48f9b310a9e094198b65</guid>
-            <pubDate>Thu, 18 Jan 2024 00:55:35 GMT</pubDate>
-            <content:encoded><![CDATA[<p>lsof（list open files）是一个查看当前系统文件的工具。在linux环境下，任何事物都以文件的形式存在，用户通过文件不仅可以访问常规数据，还可以访问网络连接和硬件；如传输控制协议 (TCP) 和用户数据报协议 (UDP)套接字等，系统在后台都为该应用程序分配了一个文件描述符，该文件描述符提供了大量关于此应用程序的信息。本期，ISEC实验室的刘老师为大家详解lsof的用法。</p>
-<p>一、命令参数</p>
-<p>-a：列出打开文件存在的进程；</p>
-<p>-c&lt;进程名&gt;：列出指定进程所打开的文件；</p>
-<p>-g：列出GID号进程详情；</p>
-<p>-d&lt;文件号&gt;：列出占用该文件号的进程；</p>
-<p>+d&lt;目录&gt;：列出目录下被打开的文件；</p>
-<p>+D&lt;目录&gt;：递归列出目录下被打开的文件；</p>
-<p>-n&lt;目录&gt;：列出使用NFS的文件；</p>
-<p>-i&lt;条件&gt;：列出符合条件的进程(4、6、协议、:端口、 @ip )；</p>
-<p>-p&lt;进程号&gt;：列出指定进程号所打开的文件；</p>
-<p>-u：列出UID号进程详情；</p>
-<p>-h：显示帮助信息；</p>
-<p>-v：显示版本信息。</p>
-<p>二、实例讲解</p>
-<p><img src="/_resources/75610d82c3d44613849c5f7d741c24ae.png" /></p>
-<p>1、lsof输出各列信息的意义，如下：</p>
-<p>COMMAND：进程的名称；</p>
-<p>PID：进程标识符；</p>
-<p>PPID：父进程标识符(需要指定-R参数)；</p>
-<p>USER：进程所有者；</p>
-<p>PGID：进程所属组；</p>
-<p>FD：文件描述符，应用程序通过文件描述符识别该文件。</p>
-<p>2、文件描述符列表：</p>
-<p>①. cwd：表示current work dirctory，即：应用程序的当前工作目录，这是该应用程序启动的目录，除非它本身对这个目录进行更改；</p>
-<p>②. txt：该类型的文件是程序代码，如应用程序二进制文件本身或共享库，如上列表中显示的 /sbin/init 程序；</p>
-<p>③. lnn：library references (AIX)；</p>
-<p>④. er：FD information error (see NAME column)；</p>
-<p>⑤. jld：jail directory (FreeBSD)；</p>
-<p>⑥. ltx：shared library text (code and data)；</p>
-<p>⑦. mxx ：hex memory-mapped type number xx.</p>
-<p>⑧. m86：DOS Merge mapped file；</p>
-<p>⑨. mem：memory-mapped file；</p>
-<p>⑩. mmap：memory-mapped device；</p>
-<p>. pd：parent directory；</p>
-<p>. rtd：root directory；</p>
-<p>. tr：kernel trace file (OpenBSD)；</p>
-<p>. v86 VP/ix mapped file；</p>
-<p>. 0：表示标准输出；</p>
-<p>. 1：表示标准输入；</p>
-<p>. 2：表示标准错误。</p>
-<p>3、一般在标准输出、标准错误、标准输入后，还跟着文件状态模式：</p>
-<p>①.u：表示该文件被打开并处于读取/写入模式；</p>
-<p>②.r：表示该文件被打开并处于只读模式；</p>
-<p>③.w：表示该文件被打开并处于只写模式；</p>
-<p>④.空格：表示该文件的状态模式为unknow，且没有锁定；</p>
-<p>⑤.-：表示该文件的状态模式为unknow，且被锁定。</p>
-<p>4、同时在文件状态模式后面，还跟着相关的锁：</p>
-<p>①. N：for a Solaris NFS lock of unknown type；</p>
-<p>②. r：for read lock on part of the file；</p>
-<p>③. R：for a read lock on the entire file；</p>
-<p>④. w：for a write lock on part of the file；(文件的部分写锁)</p>
-<p>⑤. W：for a write lock on the entire file；(整个文件的写锁)</p>
-<p>⑥. u：for a read and write lock of any length；</p>
-<p>⑦. U：for a lock of unknown type；</p>
-<p>⑧. x：for an SCO OpenServer Xenix lock on part of the file；</p>
-<p>⑨. X：for an SCO OpenServer Xenix lock on the entire file；</p>
-<p>⑩. space：if there is no lock。</p>
-<p>5、文件类型</p>
-<p>①. DIR：表示目录；</p>
-<p>②. CHR：表示字符类型；</p>
-<p>③. BLK：块设备类型；</p>
-<p>④. UNIX：UNIX 域套接字；</p>
-<p>⑤. FIFO：先进先出 (FIFO) 队列；</p>
-<p>⑥. IPv4：网际协议 (IP) 套接字；</p>
-<p>⑦. DEVICE：指定磁盘的名称；</p>
-<p>⑧. SIZE：文件的大小；</p>
-<p>⑨. NODE：索引节点(文件在磁盘上的标识)；</p>
-<p>⑩. NAME：打开文件的确切名称。</p>
-<p>三、可打开文件</p>
-<p>①. 普通文件；</p>
-<p>②. 目录；</p>
-<p>③. 网络文件系统的文件；</p>
-<p>④. 字符或设备文件；</p>
-<p>⑤. (函数)共享库；</p>
-<p>⑥. 管道，命名管道；</p>
-<p>⑦. 符号链接；</p>
-<p>⑧. 网络文件(例如：NFS file、网络socket，unix域名socket)；</p>
-<p>⑨. 其它类型的文件等。</p>
-<p>四、常规用法</p>
-<p>lsof 常被用来查找应用程序打开的文件名称和数目，系统管理员可能想尝试找出某个特定应用程序将日志数据记录到何处，或者正在跟踪某个问题。接下来，我们来看看是如何操作的：</p>
-<p>1、进程篇</p>
-<p>(1)、查看由登陆用户启动而非系统启动的进程：</p>
-<p>命令： lsof /dev/pts0<br />
-<img src="/_resources/2d4b712ed5fd4fdfbebc428d23460617.png" /></p>
-<p>a. /dev/pts是远程登陆(telnet,ssh等)后创建的控制台设备文件所在的目录；</p>
-<p>b. 第一个用户登陆，console的设备文件为/dev/pts/0，第二个为/dev/pts/1，以此类推；</p>
-<p>c. 通过查看/dev/pts下的进程，我们将可以了解到由登陆用户启动而非系统启动的进程有哪些。</p>
-<p>(2)、查看文件，设备被哪些进程占用：</p>
-<p>命令：lsof /dev/tty1</p>
-<p><img src="/_resources/82de2d48d0f5415687cb2f321bafe71a.png" /></p>
-<p>a. /dev/tty就是当前进程的控制终端的设备特殊文件；</p>
-<p>b. 通过查看/dev/tty下文件可以知道文件、设备的进程占用情况。</p>
-<p>(3)、指定进程号，可以查看该进程打开的文件：</p>
-<p>命令：lsof -p 27358<br />
-<img src="/_resources/a7d25645610741069caba7553c709fe2.png" /><br />
-a. 通过加入参数-p，我们可以指定一个PID，然后查看该进程下打开的文件。</p>
-<p>b. 本例我们查看的是nginx下打开的相关文件。</p>
-<p>2、文件篇</p>
-<p>(1)、查看指定程序打开的文件</p>
-<p>命令：lsof -c sshd<br />
-<img src="/_resources/fd4391ae7e584c098bc1deaa5236422e.png" /><br />
-通过参数-c可以列出指定进程所打开的文件情况，以上是我们打开sshd下被打开文件的情况。</p>
-<p>(2)、查看指定用户打开的文件</p>
-<p>命令：lsof -u root | more</p>
-<p><img src="/_resources/f7b13316c2a241d7a0038417dcf0c129.png" /></p>
-<p>通过参数-u查看root用户下存在的文件情况，由于root下显示内容较多，可以利用more来限制，进行分页查看。</p>
-<p>(3)、查看指定目录下被打开的文件</p>
-<p>命令：lsof +D /home/ 或lsof +d /home/</p>
-<p><img src="/_resources/8acadd009f97488684321d30eecb251c.png" /></p>
-<p>参数+D为递归列出/home/下被打开的文件，参数+d为列出/home/下被打开的文件。</p>
-<p>3、网络篇</p>
-<p>(1)、查看所有网络连接</p>
-<p>命令：lsof -i 和 lsof -i@127.0.0.1　　<br />
-<img src="/_resources/3d8ee1ed8fad410ab36f76600d9f58de.png" /><br />
-<img src="/_resources/e59736e9384f4b5d9102983235ca593b.png" /></p>
-<p>通过参数-i查看网络连接的情况，包括连接的ip、端口等；以及一些服务的连接情况，例如：sshd等。也可以通过指定ip查看该ip的网络连接情况。</p>
-<p>(2)、查看端口连接情况</p>
-<p>命令：lsof -i :22<br />
-<img src="/_resources/3bc95b57a05e4694b481513b8e7f1333.png" /></p>
-<p>通过参数-i:端口可以查看端口的占用情况，-i参数还有查看协议，ip的连接情况等。</p>
-<p>4、综合篇</p>
-<p>(1)、查看指定进程打开的网络连接</p>
-<p>命令：lsof -i -a -p 1535</p>
-<p><img src="/_resources/a287934cd706491284fefcac2f726b9a.png" /></p>
-<p>使用了参数-i、-a、-p等，-i查看网络连接情况，-a查看存在的进程，-p指定进程。</p>
-<p>(2)、查看指定状态的网络连接</p>
-<p>命令：lsof -n -P -i TCP -s TCP:ESTABLISHED</p>
-<p><img src="/_resources/4a1d814e9a744a8eaa5332dc138ccb58.png" /></p>
-<p>参数解释： -n:no host names, -P:no port names,-i TCP指定协议，-s指定协议状态；通过多个参数我们可以清晰的查看网络连接情况、协议连接情况等。</p>
-<p>五、恢复被删除的日志</p>
-<p>Linux的系统日志默认保存在/var/log下<br />
-<img src="/_resources/b140ba0f5c8f447bb2857cb38b8c6506.png" /></p>
-<p>当Linux系统被入侵后，很多入侵者经常会删除系统中的各种日志，包括Web的access和error日志、last日志、messages日志、secure日志等，阻碍应急响应和取证调查，比如rm -rf /var/log。</p>
-<p><img src="/_resources/03d4adef27be4b3da9e56c6f6fb2a6b2.png" /></p>
-<p>遇到这种情况，不要关闭或者重启服务器系统，也不要关闭或重启相关服务或者进程，如：恢复apache的访问日志/var/log/httpd/access_log时，不能关闭或者重启服务器系统，也不能重启httpd服务。</p>
-<p>假设我们要恢复被删除的messages日志和secure日志：</p>
-<p>1.首先通过losf命令找到使用messages文件的进程的PID和messages文件的FD(文件描述符)；<br />
-<img src="/_resources/34f002b904f14f88a1e2578cf872da5b.png" /></p>
-<p>从上面命令输出可以看到，这个打开/var/log/messages文件的进程的PID是815，文件/var/log/messages的FD(文件描述符)是4，状态为deleted，标记被删除，但其实该文件并没有从磁盘中删除。</p>
-<p>2.如果删除的文件还存在操作的进程，数据将可能被找回，可以在/proc/815/fd/4找到被删除的/var/log/messages文件；</p>
-<p><img src="/_resources/4527d233a84f4335a921a32883cea4ee.png" /></p>
-<p><img src="/_resources/3c90506ddfc34a14b821daa48e2299c2.png" /></p>
-<p>3.恢复被删除的/var/log/secure文件；</p>
-<p><img src="/_resources/3ca870a5bc334972b09e2da7d27a5c89.png" /></p>
-<p>在Linux系统中删除了一个文件，只要进程还在对文件进行操作，就可能还存在一个inode的引用：/proc/进程号/fd/文件描述符，只要知道当前打开文件的进程pid和文件描述符fd，即可利用lsof命令还原出被删除的文件。</p>
-<p>六、总 结</p>
-<p>Linux大量使用了文件，作为系统管理员，lsof 允许用户对核心内存进行查看，以找出系统当前如何使用这些文件。lsof的简单用法可以告诉用户哪些进程打开了哪些文件，以及哪些文件由哪些进程打开。</p>
-<p>在收集关于应用程序工作情况的信息时，或在进行某些可能损坏数据的操作前，要确保文件未被使用，这一点特别重要。lsof 更高级的用法可以帮助用户查找删除的文件，并获得关于网络连接的信息。lsof 是一个功能强大的工具，它几乎可以用于任何地方。</p>
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Linux进程内存使用查询方法]]></title>
-            <guid>6436f738f30c41649cbaf2ababad4e5f</guid>
-            <pubDate>Wed, 17 Jan 2024 02:53:42 GMT</pubDate>
-            <content:encoded><![CDATA[<p>linux查看进程占用内存情况<br />
-在Linux系统中，我们经常需要查看进程占用内存的情况，以便及时发现和解决内存相关的问题。下面将介绍几种常用的方法来查看进程占用内存的情况。</p>
-<ol>
-<li>使用top命令</li>
-</ol>
-<p>top命令是一个非常强大的系统监视工具，可以实时查看系统的资源使用情况。通过top命令，我们可以查看进程的CPU占用率、内存占用率等信息。</p>
-<p>要使用top命令查看进程占用内存情况，可以按下Shift+M键，按照内存占用率进行排序。这样就可以看到占用内存最多的进程。</p>
-<ol start="2">
-<li>使用ps命令</li>
-</ol>
-<p>ps命令可以用来查看系统中的进程信息。要查看进程的内存占用情况，可以使用ps命令的aux选项，然后按照内存占用量进行排序。</p>
-<p>命令示例：ps aux --sort -rss</p>
-<p>其中，-rss表示按照进程占用的物理内存大小进行排序。这样就可以看到占用内存最多的进程。</p>
-<ol start="3">
-<li>使用pmap命令</li>
-</ol>
-<p>pmap命令可以显示进程的内存映射情况，包括内存地址、权限、映射文件等信息。通过查看进程的内存映射情况，可以了解进程占用内存的详细情况。</p>
-<p>命令示例：pmap -x &lt;进程ID&gt;</p>
-<p>其中，&lt;进程ID&gt;是要查看的进程的ID。执行该命令后，会显示该进程占用的内存映射情况。</p>
-<ol start="4">
-<li>使用smem命令</li>
-</ol>
-<p>smem命令可以提供更详细的进程内存使用信息，包括物理内存、共享内存、内核内存等。通过smem命令，可以更全面地了解进程的内存占用情况。</p>
-<p>命令示例：smem -r</p>
-<p>执行该命令后，会显示系统中所有进程的内存使用情况，按照内存占用量进行排序。</p>
-<p>通过以上几种方法，我们可以方便地查看Linux系统中进程的内存占用情况。根据实际需求，选择合适的方法来监视和优化系统的内存使用，以提高系统的性能和稳定性。</p>
 ]]></content:encoded>
         </item>
     </channel>

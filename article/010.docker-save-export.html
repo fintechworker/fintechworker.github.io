@@ -20,9 +20,9 @@
     <!-- style -->
     <link rel="stylesheet" href="/_assets/style.css">
     <link rel="stylesheet" href="/_assets/css/media.css">
-	<meta name="keywords" content="docker配置日志">
-    <title>docker配置日志-IT民工</title>
-</head>
+	<meta name="keywords" content="010.Docker save 和 export 命令的区别">
+    <title>010.Docker save 和 export 命令的区别-IT民工</title>
+<link rel="stylesheet" href="/_markdown_plugin_assets/highlight.js/atom-one-light.css" /></head>
 <body>
 <!-- 头部 -->
 <div class="header">
@@ -105,24 +105,34 @@
         <div class="left">
             <!-- 文章主体 -->
             <div class="contents">
-                <div class="title">docker配置日志</div>
-                <div class="title_t">时间：2024-01-15 16:28丨编辑：<a href="/index.html">IT民工</a></div>
+                <div class="title">010.Docker save 和 export 命令的区别</div>
+                <div class="title_t">时间：2024-03-25 09:37丨编辑：<a href="/index.html">IT民工</a></div>
                 <div class="ner">
-                  /etc/docker/daemon.json<br />
-{<br />
-"log-driver": "json-file",<br />
-"log-opts": {<br />
-"max-size": "10m",<br />
-"max-file": "3"<br />
-}<br />
-}
+                  <blockquote>
+<p>Docker 中有两个命令可以将镜像导出为本地文件系统中的 tar 文件：<code>docker save</code> 和 <code>docker export</code>。尽管它们的作用类似，但它们之间有一个重要的区别。</p>
+</blockquote>
+<h3 id="1使用方式的不同"><a id="t0" class="jop-noMdConv"></a><a id="1_3" class="jop-noMdConv"></a>1.使用方式的不同：</h3>
+<p><code>docker save</code> 的使用示例：</p>
+<div><pre class="hljs"><code>`docker save -o test.tar image_name`
+</code></pre></div>
+<p><code>docker export</code> 的使用示例：</p>
+<div><pre class="hljs"><code>`docker <span class="hljs-keyword">export</span> container_name &gt; <span class="hljs-keyword">test</span>.tar`</code></pre></div>
+<h3 id="2导出内容的不同">2.导出内容的不同：</h3>
+<p><code>docker save</code> 命令会将整个镜像及其所有的层保存为一个 tar 文件，包括镜像的元数据和配置信息。可以将这个 tar 文件用于在其他主机上加载镜像，或将其推送到 Docker Registry 中。</p>
+<p><code>docker export</code> 命令指挥导出容器的文件系统，不包括镜像的元数据和配置信息。它可以将容器的文件系统保存为一个 tar 文件，可以用于备份或共享容器的文件系统，但不能用于创建新的镜像。</p>
+<h3 id="3导出文件的不同">3.导出文件的不同：</h3>
+<p>使用 <code>docker save</code> 命令导出的 tar 文件可以使用 <code>docker load</code> 命令导入到 Docker 中，以创建一个新的镜像。导出的 tar 文件包括完整的镜像层级结构和镜像元数据。</p>
+<p>使用 <code>docker export</code> 命令导出的 tar 文件可以使用 <code>docker import</code> 命令导入到 Docker 中，以创建一个新的镜像。但是，导入的镜像不包括原始镜像的任何元数据或配置信息。它只是简单地创建了一个包含容器文件系统的新镜像，该镜像可以用于创建新容器。</p>
+<h3 id="4总结">4.总结</h3>
+<p>综上所述，可以根据具体需要选择 <code>docker save</code> 或 <code>docker export</code> 命令：</p>
+<ul>
+<li>如果需要导出整个镜像及其元数据和配置信息，则应该使用 <code>docker save</code> 命令；</li>
+<li>如果只需要导出容器的文件系统，则可以使用 <code>docker export</code> 命令。</li>
+</ul>
+
                 </div>
 				<div style="padding:15px;">
 				   <a href="javascript:;">
-						
-							标签: 
-									<span >docker</span>
-									
 						</a>
 				</div>
                 <div class="label"> 转载请注明出处！--- IT民工 </div>
